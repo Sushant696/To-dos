@@ -14,9 +14,11 @@
     "antd": "^5.15.3",
     "iconsax-react": "^0.0.8",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.51.1"
   },
   "devDependencies": {
+    "@hookform/devtools": "^4.3.1",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@typescript-eslint/eslint-plugin": "^7.2.0",

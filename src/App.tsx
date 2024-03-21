@@ -1,11 +1,12 @@
 // import LoginForm "./components/LoginForm"
 
-import LoginForm from "./LoginForm";
+import Login from "./components/login";
+// yimport LoginForm from "./components/LoginForm";
 
 function App() {
   return (
     <>
-    <LoginForm/>
+    <Login/>
     </>
   );
 }
