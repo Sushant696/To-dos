@@ -1,9 +1,11 @@
-import "./App.css";
+// import LoginForm "./components/LoginForm"
+
+import LoginForm from "./LoginForm";
 
 function App() {
   return (
     <>
-    
+    <LoginForm/>
     </>
   );
 }
