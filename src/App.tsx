@@ -3,6 +3,8 @@
 import Home from "./components/homepage";
 import Login from "./components/login";
 import { Route, Routes } from "react-router-dom";
+import WorkTodos from "./components/work";
+import Completedtasks from "./components/completed";
 // import LoginForm from "./components/LoginForm";
 
 function App() {
@@ -10,7 +12,9 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/personal" element={<Home />} />
+        <Route path="/work" element={<WorkTodos />} />
+        <Route path="/completed" element={<Completedtasks />} />
       </Routes>
     </>
   );

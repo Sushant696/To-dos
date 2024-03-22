@@ -56,8 +56,8 @@ function LoginForm() {
   localStorage.getItem("authenticated");
 
   if (authenticated) {
-    // Redirect to todo app or render todo app component
-    navigate("/home");
+    // Redirect to homepage of the todo app after successful user athentication.
+    navigate("/personal");
   }
 
   return (
