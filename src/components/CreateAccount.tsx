@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form";
 import LoginForm from "./LoginForm";
 import { useState } from "react";
 
-
 type FormData = {
   username: string;
   email: string;
@@ -47,12 +46,11 @@ function CreateAccount() {
       setRegisterUser(true);
       
     }
-    
     // Reset the form fields
     form.reset();
   }
 
-  return (
+  return (  
     <div className="w-[100%] h-screen flex justify-center items-center">
       <div className="w-full flex items-start justify-center">
         {!registeredUser && (
