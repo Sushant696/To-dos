@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import LoginForm from "./LoginForm";
 import { useState } from "react";
 
+
 type FormData = {
   username: string;
   email: string;
@@ -44,8 +45,9 @@ function CreateAccount() {
       storedUsers.push(newUser);
       localStorage.setItem("users", JSON.stringify(storedUsers));
       setRegisterUser(true);
+      
     }
-
+    
     // Reset the form fields
     form.reset();
   }

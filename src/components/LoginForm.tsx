@@ -4,7 +4,8 @@ import { Divider } from "antd";
 import { useForm } from "react-hook-form";
 import CreateAccount from "./CreateAccount";
 import { DevTool } from "@hookform/devtools";
-import Home from "./homepage";
+// import Home from "./homepage";
+import { useNavigate } from "react-router-dom";
 
 type FormData = {
   username: string;
@@ -14,6 +15,7 @@ type FormData = {
 function LoginForm() {
   const [authenticated, setAuthenticated] = useState<boolean>(false);
   const [userexist, setNewUser] = useState(true);
+  const navigate = useNavigate();
 
   const form = useForm<FormData>({
     defaultValues: {
@@ -55,7 +57,7 @@ function LoginForm() {
 
   if (authenticated) {
     // Redirect to todo app or render todo app component
-    return <Home />;
+    navigate("/home");
   }
 
   return (
