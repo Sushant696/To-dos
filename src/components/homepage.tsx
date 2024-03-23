@@ -27,6 +27,11 @@ function Home() {
     reset({ task: "" });
   }
 
+  function handleRemoveTodos(key: number) {
+    const deletedTodos = [setTaskArray(taskArray.filter((_, i) => i !== key))];
+    console.log(deletedTodos);
+  }
+
   return (
     <>
       <Navbar />
@@ -50,9 +55,15 @@ function Home() {
         <div className="mt-[4rem] w-[40%]">
           {taskArray.map((toDo, key) => {
             return (
-              <div key={key} className="flex items-center border p-2 m-4">
+              <div
+                key={key}
+                className="flex items-center border p-2 m-4"
+                onClick={() => {
+                  handleRemoveTodos(key);
+                }}
+              >
                 <h1 className="w-full  m-4">{toDo}</h1>
-                <NoteRemove size="32" variant="Bold" color="#2667FF"/>
+                <NoteRemove size="32" variant="Bold" color="#2667FF" />
               </div>
             );
           })}
