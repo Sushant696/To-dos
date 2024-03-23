@@ -1,16 +1,28 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 function Navbar() {
   return (
-    <div>
+    <div className="mb-[5rem]">
       <ul className="flex justify-center gap-[12rem] mt-6">
         <li>
-          <Link className="text-[24px]" to={"/personal"}>Personal</Link>
+          <NavLink 
+            className=" text-[24px] text-[#03256c] font-md"
+            to={"/personal"}
+          >
+            Personal
+          </NavLink>
         </li>
         <li>
-          <Link className="text-[24px]" to={"/work"}>Work</Link>
+          <NavLink className="text-[24px] text-[#03256c] font-md" to={"/work"}>
+            Work
+          </NavLink>
         </li>
         <li>
-          <Link className="text-[24px]" to={"/completed"}>Completed</Link>
+          <NavLink
+            className=" text-[24px] text-[#03256c] font-md"
+            to={"/completed"}
+          >
+            Completed
+          </NavLink>
         </li>
       </ul>
     </div>
