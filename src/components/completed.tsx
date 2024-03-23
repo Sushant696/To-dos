@@ -8,8 +8,9 @@ function Completedtasks() {
     if (storedTasks) {
       setTasks(JSON.parse(storedTasks));
     }
-  }, []);
+  }, [tasks]);
   console.log(tasks);
+
   return (
     <>
       <Navbar />
