@@ -12,13 +12,18 @@ function Home() {
   const [taskArray, setTaskArray] = useState<string[]>(
     storedTasks ? JSON.parse(storedTasks) : []
   );
+  const storedDeletedTasks = localStorage.getItem("DeletedTasks");
+  const [deletedTasks, setDeletedTasks] = useState<string[]>(
+    storedDeletedTasks ? JSON.parse(storedDeletedTasks) : []
+  );
 
   const form = useForm<FormValues>();
   const { register, handleSubmit, reset } = form;
 
   useEffect(() => {
     localStorage.setItem("Tasks", JSON.stringify(taskArray));
-  }, [taskArray]);
+    localStorage.setItem("DeletedTasks", JSON.stringify(deletedTasks));
+  }, [taskArray, deletedTasks]);
 
   function onsubmit(data: FormValues) {
     const { task } = data;
@@ -28,8 +33,10 @@ function Home() {
   }
 
   function handleRemoveTodos(key: number) {
-    const deletedTodos = [setTaskArray(taskArray.filter((_, i) => i !== key))];
-    console.log(deletedTodos);
+    const delTodos = taskArray[key];
+    setTaskArray(taskArray.filter((_, i) => i !== key));
+    setDeletedTasks((prevDelTasks) => [...prevDelTasks, delTodos]);
+    console.log(delTodos);
   }
 
   return (
