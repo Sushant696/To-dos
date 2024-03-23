@@ -42,7 +42,7 @@ function LoginForm() {
         user.username === username && user.password === password
     );
     if (authenticatedUser) {
-      localStorage.setItem("authenticated", "true");
+      sessionStorage.setItem("authenticated", "true");
       setAuthenticated(true); // Update local state to reflect authentication status
     } else {
       // Handle authentication failure
