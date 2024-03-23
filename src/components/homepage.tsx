@@ -1,15 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "./navbar";
 import { useForm } from "react-hook-form";
+import { NoteRemove } from "iconsax-react";
 
 type FormValues = {
   task: string;
 };
 
 function Home() {
-  const [taskArray, setTaskArray] = useState<string[]>([]);
+  const storedTasks = localStorage.getItem("Tasks");
+  const [taskArray, setTaskArray] = useState<string[]>(
+    storedTasks ? JSON.parse(storedTasks) : []
+  );
+
   const form = useForm<FormValues>();
   const { register, handleSubmit, reset } = form;
+
+  useEffect(() => {
+    localStorage.setItem("Tasks", JSON.stringify(taskArray));
+  }, [taskArray]);
 
   function onsubmit(data: FormValues) {
     const { task } = data;
@@ -22,7 +31,7 @@ function Home() {
     <>
       <Navbar />
 
-      <div className=" w-full flex justify-center">
+      <div className=" w-full flex justify-center flex-col items-center">
         <form onSubmit={handleSubmit(onsubmit)} className="w-[35%] flex">
           <input
             type="text"
@@ -38,6 +47,16 @@ function Home() {
             Add
           </button>
         </form>
+        <div className="mt-[4rem] w-[40%]">
+          {taskArray.map((toDo, key) => {
+            return (
+              <div key={key} className="flex items-center border p-2 m-4">
+                <h1 className="w-full  m-4">{toDo}</h1>
+                <NoteRemove size="32" variant="Bold" color="#2667FF"/>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </>
   );
