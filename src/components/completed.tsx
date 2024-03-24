@@ -3,12 +3,13 @@ import Navbar from "./navbar";
 
 function Completedtasks() {
   const [tasks, setTasks] = useState<string[]>();
+  
   useEffect(() => {
     const storedTasks = localStorage.getItem("DeletedTasks");
     if (storedTasks) {
       setTasks(JSON.parse(storedTasks));
     }
-  }, [tasks]);
+  }, []);
   console.log(tasks);
 
   return (

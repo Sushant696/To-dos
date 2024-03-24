@@ -44,21 +44,21 @@ function Home() {
       <Navbar />
 
       <div className=" w-full flex justify-center flex-col items-center">
-        <form onSubmit={handleSubmit(onsubmit)} className="w-[35%] flex">
-          <input
-            type="text"
-            {...register("task", { required: true })}
-            required
-            placeholder="Add New Task"
-            className="w-full p-4 rounded-[10px] border-opacity-30 border border-[#333] rounded-r-[0px]"
-          />
-          <button
-            type="submit"
-            className="bg-[#2667FF] text-[#ffff] px-8 py-2 rounded-[8px] border-opacity-30 border border-[#fff] rounded-l-[0px]"
-          >
-            Add
-          </button>
-        </form>
+          <form onSubmit={handleSubmit(onsubmit)} className="w-[35%] flex">
+            <input
+              type="text"
+              {...register("task", { required: true })}
+              required
+              placeholder="Add New Personal Task"
+              className="w-full p-4 roundedd-[10px] border-opacity-30 border border-[#333] rounded-r-[0px]"
+            />
+            <button
+              type="submit"
+              className="bg-[#2667FF] text-[#ffff] px-8 py-2 rounded-[8px] border-opacity-30 border border-[#fff] rounded-l-[0px]"
+            >
+              Add
+            </button>
+          </form>
         <div className="mt-[4rem] w-[40%]">
           {taskArray.map((toDo, key) => {
             return (
@@ -70,7 +70,7 @@ function Home() {
                 }}
               >
                 <h1 className="w-full  m-4">{toDo}</h1>
-                <NoteRemove size="32" variant="Bold" color="#2667FF" />
+                <NoteRemove size="32" variant="Bold" color="#CD201F" />
               </div>
             );
           })}
