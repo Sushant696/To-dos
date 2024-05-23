@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "username": "john.doe",
+    "email": "john.doe@example.com",
+    "position": "Software Engineer"
+  },
+  {
+    "id": 2,
+    "username": "jane.smith",
+    "email": "jane.smith@example.com",
+    "position": "Marketing Manager"
+  },
+  {
+    "id": 3,
+    "username": "david.lee",
+    "email": "david.lee@example.com",
+    "position": "Data Analyst"
+  },
+  {
+    "id": 4,
+    "username": "alice.wong",
+    "email": "alice.wong@example.com",
+    "position": "Graphic Designer"
+  },
+  {
+    "id": 5,
+    "username": "michael.chen",
+    "email": "michael.chen@example.com",
+    "position": "Product Manager"
+  }
+]
