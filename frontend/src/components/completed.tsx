@@ -15,11 +15,11 @@ function Completedtasks() {
   return (
     <>
       <Navbar />
-      <div>
+      <div className="flex  flex-col items-center text-left">
         {tasks?.map((delTodos, key) => {
           return (
-            <div key={key}>
-              <h1>{delTodos}</h1>
+            <div className="text-left" key={key}>
+              <h1 className="text-[#900]">{delTodos}</h1>
             </div>
           );
         })}
