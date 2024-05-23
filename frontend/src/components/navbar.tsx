@@ -1,43 +1,55 @@
-import { LogoutCurve } from "iconsax-react";
+// import { LogoutCurve } from "iconsax-react";
+import { Button, Divider } from "antd";
 import { NavLink } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+
 
 function Navbar() {
-  const navigate = useNavigate();
-  function handleLogout(){
-    navigate("/")
-  }
+
   return (
     <div className="mb-[5rem]">
-      <ul className="flex justify-center gap-[8rem] mt-6">
+      <ul className="flex justify-between container gap-[8rem] mt-6">
+
         <li>
           <NavLink
-            className="text-[24px] text-[#03256c] font-md"
-            to={"/personal"}
+            className="subtitle-text font-md"
+            to={"/"}
           >
-            Personal Tasks
+            Logo
           </NavLink>
         </li>
-        <li>
-          <NavLink className="text-[24px] text-[#03256c] font-md" to={"/work"}>
-            Work Tasks
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            className="text-[24px] text-[#03256c] font-md"
-            to={"/completed"}
-          >
-            Completed Tasks
-          </NavLink>
-        </li>
+
+        <div className="flex gap-8 items-center">
+          <li>
+            <NavLink className="text-[24px] text-[#03256c] font-md" to={"/features"}>
+              Features
+            </NavLink>
+          </li>
+          <li>
+            <NavLink className="text-[24px] text-[#03256c] font-md" to={"/pricing"}>
+              Pricing
+            </NavLink>
+          </li>
+          <Divider type="vertical" className="bg-black h-8" />
+          <div className="flex gap-6">
+            <li>
+              <NavLink
+                className="text-[24px] text-[#03256c] font-md"
+                to={"/login"}
+              >
+                Login
+              </NavLink>
+            </li>
+            <Button size="large" type="primary" className="rounded-lg py-1 px-3 text-white bg-blue-500 ">
+              <NavLink
+                className="text-white medium-text font-bold font-md "
+                to={"/sign-up"}
+              >
+                Start For Free
+              </NavLink>
+            </Button>
+          </div>
+        </div>
       </ul>
-      <div className=" fixed top-5 right-5 mb-[-2rem] ">
-        <button onClick={handleLogout} className="flex items-center gap-3 text-[24px] text-[#111] font-md px-4 py-1 ">
-          Logout
-          <LogoutCurve size="32" color="#2667FF" />
-        </button>
-      </div>
     </div>
   );
 }

@@ -1,6 +1,6 @@
-import { useForm } from "react-hook-form";
-import LoginForm from "./LoginForm";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+// import LoginForm from "./LoginForm";
 
 type FormData = {
   username: string;
@@ -10,7 +10,11 @@ type FormData = {
 };
 
 function CreateAccount() {
-  const [registeredUser, setRegisterUser] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
+  const [messageColor, setMessageColor] = useState<string>("red")
+
+
 
   const form = useForm<FormData>({
     defaultValues: {
@@ -24,37 +28,41 @@ function CreateAccount() {
   const { register, handleSubmit, formState } = form;
   const { errors } = formState;
 
-  function onSubmit(data: FormData) {
-    const { username, email, password } = data;
-    const storedUsers = JSON.parse(localStorage.getItem("users") || "[]");
+  async function onSubmit(data: FormData) {
+    setLoading(true)
+    try {
+      const response = await fetch("http://localhost:5500/api/user/register", {
+        method: "post",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(data)
+      })
 
-    // Check if the username already exists
-    const userExists = storedUsers.some(
-      (user: { username: string }) => user.username === username
-    );
+      const res = await response.json();
+      setMessage(res.message)
 
-    if (userExists) {
-      // Alert the user that the username already exists
-      alert(
-        "Username already exists. Please try again with a different username."
-      );
-    } else {
-      // If the username doesn't exist, save the credentials to local storage
-      const newUser = { username, email, password };
-      storedUsers.push(newUser);
-      localStorage.setItem("users", JSON.stringify(storedUsers));
-      setRegisterUser(true);
-      
+      if (response.status >= 200 && response.status < 300) {
+        setMessageColor("green");
+      } else {
+        setMessageColor("red")
+      }
+      // Reset the form fields
+      form.reset();
     }
-    // Reset the form fields
-    form.reset();
+    catch (error) {
+      console.error("User not registered!")
+    }
+    finally {
+      setLoading(false) // After the form submission is complete
+    }
   }
 
-  return (  
-    <div className="w-[100%] h-screen flex justify-center items-center">
-      <div className="w-full flex items-start justify-center">
-        {!registeredUser && (
-          <div className="w-[80%] p-12">
+  return (
+    <div className="w-full">
+      <div className="m-3">
+        {message && <h1 style={{ color: messageColor }} className={`subtitle-text text-center`}>{message}</h1>}
+        {loading ? <h1>Please wait while submitting the form</h1> :
+
+          <div className="container p-12">
             <form
               onSubmit={handleSubmit(onSubmit)}
               noValidate
@@ -168,9 +176,7 @@ function CreateAccount() {
                 </button>
               </div>
             </form>
-          </div>
-        )}
-        {registeredUser && <LoginForm />}
+          </div>}
       </div>
     </div>
   );

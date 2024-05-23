@@ -2,15 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 
-.active {
-    
-
-} */
+.container {
+  @apply mx-auto w-full px-4 md:w-4/5 xl:w-4/5 xl:p-0;
+}
+.small-text {
+  @apply text-xs text-blue-950 lg:text-sm;
+}
+.regular-text {
+  @apply text-sm text-blue-950 lg:text-base;
+}
+.title-text {
+  @apply text-[32px] text-blue-950 font-bold lg:text-[36px];
+}
+.subtitle-text {
+  @apply text-[24px] text-blue-950 lg:text-[24px];
+}
+.medium-text {
+  @apply text-base text-blue-950 lg:text-lg;
+}
+.zoom-in-transition {
+  @apply transition-transform duration-500 ease-in-out;
+}
 
 .active {
   /* font-weight: 550; */
-  border-bottom: 2px solid #2667ff;
+  /* border-bottom: 2px solid #2667ff; */
+  color: #2667ff;
+  font-size: 28px;
+  font-weight: 600;
 }
 
 .active::after {

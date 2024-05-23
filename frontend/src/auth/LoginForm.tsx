@@ -4,8 +4,7 @@ import { Divider } from "antd";
 import { useForm } from "react-hook-form";
 import CreateAccount from "./CreateAccount";
 import { DevTool } from "@hookform/devtools";
-// import Home from "./homepage";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 type FormData = {
   username: string;
@@ -13,9 +12,9 @@ type FormData = {
 };
 
 function LoginForm() {
-  const [authenticated, setAuthenticated] = useState<boolean>(false);
+  // const [authenticated, setAuthenticated] = useState<boolean>(false);
   const [userexist, setNewUser] = useState(true);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const form = useForm<FormData>({
     defaultValues: {
@@ -32,39 +31,17 @@ function LoginForm() {
   }
 
   function onSubmit(data: FormData) {
-    const { username, password } = data;
+    console.log(data)
 
-    const storedUsers = JSON.parse(localStorage.getItem("users") || "[]");
-
-    // find the user with the given username and password
-    const authenticatedUser = storedUsers.find(
-      (user: { username: string; password: string }) =>
-        user.username === username && user.password === password
-    );
-    if (authenticatedUser) {
-      sessionStorage.setItem("authenticated", "true");
-      setAuthenticated(true); // Update local state to reflect authentication status
-    } else {
-      // Handle authentication failure
-      alert("Invalid credentials");
-      console.log("Invalid credentials");
-    }
-
-    // Clear form fields
+    // Reset the form fields
     form.reset();
-  }
-  localStorage.getItem("authenticated");
-
-  if (authenticated) {
-    // Redirect to homepage of the todo app after successful user athentication.
-    navigate("/personal");
   }
 
   return (
-    <div className="w-[100%] h-screen flex justify-center items-center ">
-      <div className="w-full flex items-start justify-center ">
+    <div className="w-2/3">
+      <div className="">
         {userexist && (
-          <div className="w-[80%] p-12">
+          <div className="container">
             <form
               onSubmit={handleSubmit(onSubmit)}
               noValidate

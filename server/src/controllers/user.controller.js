@@ -11,10 +11,10 @@ const registerUser = asyncHandler(async (req, res) => {
     // return the response to the frontend
 
     const { username, password, email } = req.body;
-    console.log(req.body)
 
     if (username === "" || password === "") {
-        throw new Apierror(404, "Username and password are required")
+        return res.status(400).json(new ApiResponse(400, { message: "Username and Password are required" }, "Username and password are required"));
+        // throw new Apierror(404, "Username and password are required")
     }
 
     const existingUser = await User.findOne({
@@ -22,7 +22,8 @@ const registerUser = asyncHandler(async (req, res) => {
     })
 
     if (existingUser) {
-        throw new Apierror(409, "User with this username and email already exist.")
+        return res.status(400).json(new ApiResponse(400, { message: "User with this username or email already exist." }, "User with this username or email already exist."));
+        // throw new Apierror(409, "User with this username and email already exist.")
     }
 
     const createdUser = await User.create({
@@ -31,10 +32,10 @@ const registerUser = asyncHandler(async (req, res) => {
         email
     });
 
-    
+
     // generate jwt containing user info in claims and signs it with a secret key 
     // send that key to user
-    return res.status(201).json(new ApiResponse(200, { message: "user Registered Successfully" })) // sending to frontend as response
+    return res.status(201).json(new ApiResponse(201, { message: "User registered successfully" }, "User registered successfully"));
 })
 
 

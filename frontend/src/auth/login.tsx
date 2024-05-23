@@ -4,10 +4,10 @@ import LoginForm from "./LoginForm";
 function Login() {
   return (
     <>
-      <div className="w-full h-screen flex justify-center items-center">
-        <div className="w-full flex items-center ">
-          <div className="w-full ml-[3rem] flex flex-col gap-[4rem] px-10 py-12">
-            <h1 className="text-[48px]">
+      <div className="m-2 w-full h-screen flex items-center">
+        <div className="m-2 container flex justify-center items-center gap-8  ">
+          <div className="flex flex-col gap-[2rem]">
+            <h1 className="title-text">
               Welcome to Sushant's To-Dos Tracking Web Application.
             </h1>
             {/* Social login buttons */}
