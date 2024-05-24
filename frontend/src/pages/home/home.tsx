@@ -3,7 +3,7 @@ import Navbar from "../../components/navbar"
 function Main() {
     return (
         <div>
-            <Navbar />
+            <Navbar />  
             <h1>
                 hello welcome to the Navbar application
             </h1>

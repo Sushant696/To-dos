@@ -1,20 +1,17 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-import { useState } from "react";
+
+import { DevTool } from "@hookform/devtools";
+
 import { Divider } from "antd";
 import { useForm } from "react-hook-form";
-import CreateAccount from "./CreateAccount";
-import { DevTool } from "@hookform/devtools";
-// import { useNavigate } from "react-router-dom";
+import AuthO from "./loginWith";
+import BackToHome from "@/components/BackToHome";
 
 type FormData = {
   username: string;
   password: string;
 };
 
-function LoginForm() {
-  // const [authenticated, setAuthenticated] = useState<boolean>(false);
-  const [userexist, setNewUser] = useState(true);
-  // const navigate = useNavigate();
+function Login() {
 
   const form = useForm<FormData>({
     defaultValues: {
@@ -27,7 +24,7 @@ function LoginForm() {
 
   function accountCreation() {
     console.log("create a new account");
-    setNewUser(false);
+    // setNewUser(false);
   }
 
   function onSubmit(data: FormData) {
@@ -38,10 +35,14 @@ function LoginForm() {
   }
 
   return (
-    <div className="w-2/3">
-      <div className="">
-        {userexist && (
-          <div className="container">
+    <>
+    <div className="absolute top-8 left-8">
+      <BackToHome />
+    </div>
+      <div className="container flex justify-center items-center">
+        <div className="w-full flex flex-col justify-center items-center">
+          <AuthO />
+          <div className="w-3/5">
             <form
               onSubmit={handleSubmit(onSubmit)}
               noValidate
@@ -117,13 +118,14 @@ function LoginForm() {
                 </button>
               </div>
             </form>
+
             <DevTool control={control} />
           </div>
-        )}
-        {!userexist && <CreateAccount />}
+
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
-export default LoginForm;
+export default Login;
