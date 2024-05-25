@@ -1,21 +1,17 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-import { useState } from "react";
+
+import { DevTool } from "@hookform/devtools";
+
 import { Divider } from "antd";
 import { useForm } from "react-hook-form";
-import CreateAccount from "./CreateAccount";
-import { DevTool } from "@hookform/devtools";
-// import Home from "./homepage";
-import { useNavigate } from "react-router-dom";
+import AuthO from "./loginWith";
+import BackToHome from "@/components/BackToHome";
 
 type FormData = {
   username: string;
   password: string;
 };
 
-function LoginForm() {
-  const [authenticated, setAuthenticated] = useState<boolean>(false);
-  const [userexist, setNewUser] = useState(true);
-  const navigate = useNavigate();
+function Login() {
 
   const form = useForm<FormData>({
     defaultValues: {
@@ -28,43 +24,25 @@ function LoginForm() {
 
   function accountCreation() {
     console.log("create a new account");
-    setNewUser(false);
+    // setNewUser(false);
   }
 
   function onSubmit(data: FormData) {
-    const { username, password } = data;
+    console.log(data)
 
-    const storedUsers = JSON.parse(localStorage.getItem("users") || "[]");
-
-    // find the user with the given username and password
-    const authenticatedUser = storedUsers.find(
-      (user: { username: string; password: string }) =>
-        user.username === username && user.password === password
-    );
-    if (authenticatedUser) {
-      sessionStorage.setItem("authenticated", "true");
-      setAuthenticated(true); // Update local state to reflect authentication status
-    } else {
-      // Handle authentication failure
-      alert("Invalid credentials");
-      console.log("Invalid credentials");
-    }
-
-    // Clear form fields
+    // Reset the form fields
     form.reset();
-  }
-  localStorage.getItem("authenticated");
-
-  if (authenticated) {
-    // Redirect to homepage of the todo app after successful user athentication.
-    navigate("/personal");
   }
 
   return (
-    <div className="w-[100%] h-screen flex justify-center items-center ">
-      <div className="w-full flex items-start justify-center ">
-        {userexist && (
-          <div className="w-[80%] p-12">
+    <>
+    <div className="absolute top-8 left-8">
+      <BackToHome />
+    </div>
+      <div className="container flex justify-center items-center">
+        <div className="w-full flex flex-col justify-center items-center">
+          <AuthO />
+          <div className="w-3/5">
             <form
               onSubmit={handleSubmit(onSubmit)}
               noValidate
@@ -140,13 +118,14 @@ function LoginForm() {
                 </button>
               </div>
             </form>
+
             <DevTool control={control} />
           </div>
-        )}
-        {!userexist && <CreateAccount />}
+
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
-export default LoginForm;
+export default Login;

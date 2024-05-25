@@ -1,20 +1,17 @@
-import { Apierror } from "../utils/ApiErrorHandling.js";
+// import { Apierror } from "../utils/ApiErrorHandling.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { User } from "../models/user.models.js"
 import { ApiResponse } from "../utils/ApiResponse.js"
+import { generateAccessToken, generateRefreshToken } from "../utils/generateTokens.js";
 
 
 const registerUser = asyncHandler(async (req, res) => {
-    // get the response 
-    // check validate the username and password
-    //if user name and password are correct save the user to the data base
-    // return the response to the frontend
 
     const { username, password, email } = req.body;
-    console.log(req.body)
 
     if (username === "" || password === "") {
-        throw new Apierror(404, "Username and password are required")
+        return res.status(400).json(new ApiResponse(400, { message: "Username and Password are required" }, "Username and password are required"));
+        // throw new Apierror(404, "Username and password are required")
     }
 
     const existingUser = await User.findOne({
@@ -22,7 +19,8 @@ const registerUser = asyncHandler(async (req, res) => {
     })
 
     if (existingUser) {
-        throw new Apierror(409, "User with this username and email already exist.")
+        return res.status(400).json(new ApiResponse(400, { message: "User with this username or email already exist." }, "User with this username or email already exist."));
+        // throw new Apierror(409, "User with this username and email already exist.")
     }
 
     const createdUser = await User.create({
@@ -31,38 +29,70 @@ const registerUser = asyncHandler(async (req, res) => {
         email
     });
 
-    
-    // generate jwt containing user info in claims and signs it with a secret key 
-    // send that key to user
-    return res.status(201).json(new ApiResponse(200, { message: "user Registered Successfully" })) // sending to frontend as response
+    return res.status(201).json(new ApiResponse(201, { message: "User registered successfully" }, "User registered successfully"));
 })
 
 
 const loginUser = asyncHandler(async (req, res) => {
 
-    // access the data and check the password validation 
-    // find if the user exist or not 
-
     const { username, password } = req.body;
     if (username === "" || password === "") {
-        throw new Apierror(404, "Username and password are required")
+        return res.status(500).json(new ApiResponse(500, {}, "Username or password are required"));
+        // throw new Apierror(404, "Username and password are required")
     }
 
     const user = await User.findOne({ username });
-    if (!user) {
-        throw new Apierror(404, "User not found!");
-    }
-    // console.log(await user.isPasswordCorrect(password))
-    const isPasswordValid = await User.isPasswordCorrect(password);
-    if (!isPasswordValid) {
-        throw new Apierror(409, "Please enter a correct password !!!");
+    if (!user) { return res.status(500).json(new ApiResponse(500, {}, "User Not Found!")) }
+
+    const isPasswordValid = await user.isPasswordCorrect(password);
+    if (!isPasswordValid) { return res.status(500).json(new ApiResponse(500, {}, "Incorrect password!!")) }
+
+
+    const accessToken = generateAccessToken(user._id);
+    const refreshToken = generateRefreshToken(user._id);
+
+    // assigning our refreshtoken to the database refresh token
+    user.refreshToken = refreshToken;
+    await user.save({ validateBeforeSave: false });
+
+    const loggedInUser = await User.findById(user._id)
+        .select("-password -refreshToken") // the loggenInUser will not be avaliable in loggenInUser
+
+    const options = {
+        httpOnly: true,
+        secure: true
     }
 
-    res.status(200).json("User Login success")
+    return res
+        .status(200)
+        .cookie("accessToken", accessToken, options)
+        .cookie("refreshToken", refreshToken, options)
+        .json(new ApiResponse(205, { user: { loggedInUser, refreshToken, accessToken } }, ""))
+    // sending access and refresh token in response as in frontend user can also save those in local storage or something else giving frontend dev developer different options
+
 })
 
 const logoutUser = asyncHandler(async (req, res) => {
-    res.status(291).json("User logout successfully")
+    // req.user is coming from the verifyJWT middleware 
+    await User.findByIdAndUpdate(
+        req.user._id,
+        {
+            $set: {
+                refreshToken: undefined
+            }
+        },
+        { new: true }
+    )
+    const options = {
+        httpOnly: true,
+        secure: true
+    }
+    return res
+        .status(200)
+        .clearCookie("accessToken", options)
+        .clearCookie("refreshToken", options)
+        .json(new ApiResponse(200, {}, "User logout successfully"))
+
 })
 
 export { registerUser, loginUser, logoutUser }

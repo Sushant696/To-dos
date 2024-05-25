@@ -30,6 +30,7 @@ const userSchema = new mongoose.Schema(
 );
 
 
+// encrypt the password before storing in the database.
 userSchema.pre("save", async function (next) {
   if (!this.isModified('password')) return next();
   this.password = await bcrypt.hash(this.password, 10) // (what to hash , how many hashing rounds )
@@ -43,26 +44,26 @@ userSchema.methods.isPasswordCorrect = async function (password) {
 
 
 // these methods will be avaliable in the user document in all instance of the user model
-userSchema.methods.generateAccessToken = function () {
-  return jwt.sign({
-    _id: this._id,
-    email: this.email, // email is payload/(data) name  and this.email is comming from database so we are referencing with this
-    username: this.username
-  },
-    process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: process.env.ACCESS_TOKEN_EXPIRY
-  })
-}
-userSchema.methods.generateRefreshToken = function () {
-  return jwt.sign(
-    {
-      _id: this._id,
+// userSchema.methods.generateAccessToken = function () {
+//   return jwt.sign({
+//     _id: this._id,
+//     email: this.email, // email is payload/(data) name  and this.email is comming from database so we are referencing with this
+//     username: this.username
+//   },
+//     process.env.ACCESS_TOKEN_SECRET, {
+//     expiresIn: process.env.ACCESS_TOKEN_EXPIRY
+//   })
+// }
+// userSchema.methods.generateRefreshToken = function () {
+//   return jwt.sign(
+//     {
+//       _id: this._id,
 
-    }, process.env.REFRESH_TOKEN_SECRET, {
-    expiresIn: process.env.REFRESH_TOKEN_EXPIRY
-  }
-  )
-}
+//     }, process.env.REFRESH_TOKEN_SECRET, {
+//     expiresIn: process.env.REFRESH_TOKEN_EXPIRY
+//   }
+//   )
+// }
 
 export const User = mongoose.model("user", userSchema); // the user inside of model in database will be users and in lower case.
 

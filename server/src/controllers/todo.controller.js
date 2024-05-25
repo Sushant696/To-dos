@@ -9,7 +9,6 @@ const addTodo = asyncHandler(async (req, res) => {
     // if the todos are valid then  save them to database
     // then create a get request to make todo avaliable to the frontend then map it and make use of t hat complete to mark the todo as 
 
-
     if (!title || !description) {
         return res.status(400).json(new ApiResponse(400, {}, "Todo description and title are required"))
     }
