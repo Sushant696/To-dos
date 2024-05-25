@@ -1,7 +1,5 @@
 
-import Navbar from "../../components/navbar";
 import { useForm } from "react-hook-form";
-import { NoteRemove } from "iconsax-react";
 
 type FormValues = {
   task: string;
@@ -20,7 +18,7 @@ function Home() {
 
   return (
     <>
-      <Navbar />
+
       <div className=" w-full flex justify-center flex-col items-center">
         <form onSubmit={handleSubmit(onsubmit)} className="w-[35%] flex">
           <input
@@ -37,10 +35,6 @@ function Home() {
             Add
           </button>
         </form>
-        <div className="mt-[4rem] w-[40%]">
-          <h1 className="w-full  m-4"></h1>
-          <NoteRemove size="32" variant="Bold" color="#CD201F" />
-        </div>
       </div>
     </>
   );

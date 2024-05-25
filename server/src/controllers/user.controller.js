@@ -3,6 +3,8 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { User } from "../models/user.models.js"
 import { ApiResponse } from "../utils/ApiResponse.js"
 import { generateAccessToken, generateRefreshToken } from "../utils/generateTokens.js";
+import { Apierror } from "../utils/ApiErrorHandling.js";
+import jwt from "jsonwebtoken";
 
 
 const registerUser = asyncHandler(async (req, res) => {
@@ -72,8 +74,9 @@ const loginUser = asyncHandler(async (req, res) => {
 
 })
 
+
 const logoutUser = asyncHandler(async (req, res) => {
-    // req.user is coming from the verifyJWT middleware 
+
     await User.findByIdAndUpdate(
         req.user._id,
         {
@@ -92,8 +95,50 @@ const logoutUser = asyncHandler(async (req, res) => {
         .clearCookie("accessToken", options)
         .clearCookie("refreshToken", options)
         .json(new ApiResponse(200, {}, "User logout successfully"))
+})
+
+
+const refreshAccessToken = asyncHandler(async (req, res) => {
+
+    // access incomming token
+    const incommingRefreshToken = req.cookies.refreshToken || req.body.refreshToken;
+    if (!incommingRefreshToken) {
+        throw new Apierror(401, "Unauthorized request")
+    }
+    try {
+
+        // verify refreshtoken to db stored token
+        const decodedToken = jwt.verify(incommingRefreshToken, process.env.REFRESH_TOKEN_SECRET)
+        //    The token was sent with payload of id so after decoding, we have that id
+        const user = await User.findById(decodedToken?.id);
+        console.log(user, "user")
+        if (!user) {
+            throw new Apierror(401, "Invalid Refresh token")
+        }
+
+        if (incommingRefreshToken !== user?.refreshToken) {
+            throw new Apierror(401, "Refresh token is expired or used.")
+        }
+
+        const options = {
+            httpOnly: true,
+            secure: true
+        }
+        console.log(user, "user")
+        const accessToken = generateAccessToken(user._id)
+        const newRefreshToken = generateRefreshToken(user._id)
+
+        return res
+            .status(200)
+            .cookie("accessToken", accessToken, options)
+            .cookie("refreshToken", newRefreshToken, options)
+            .json(new ApiResponse(200, { accessToken, refreshToken: newRefreshToken }, "Access token refreshed!"))
+
+    } catch (error) {
+        throw new Apierror(404, error?.message || "Something went wrong while refreshing access token")
+    }
 
 })
 
-export { registerUser, loginUser, logoutUser }
+export { registerUser, loginUser, logoutUser, refreshAccessToken }
 
