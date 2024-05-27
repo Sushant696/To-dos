@@ -27,7 +27,7 @@ function Routing() {
         <Route path="/features" element={<Features />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/login" element={<Login />} />
-        <ProtectedRoute path="/features" element={<Features />} />
+        <ProtectedRoute path="/login" element={<Features />} />
         <Route path="/sign-up" element={<CreateAccount />} />
       </Routes>
     </>

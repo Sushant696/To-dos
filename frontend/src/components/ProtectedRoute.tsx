@@ -6,21 +6,18 @@ import { useSelector } from 'react-redux';
 import { RootsState } from '@/redux/store';
 
 interface ProtectedRouteProps {
-    element: React.ElementType;
-    path: string
+    element: React.ReactElement;
+    path: string;
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ element: Component, path, ...rest }) => {
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ element, path }) => {
     const isAuthenticated = useSelector((state: RootsState) => state.auth.isAuthenticated);
 
     return (
-
         <Route
-            {...rest}
             path={path}
-            element={isAuthenticated ? <Component {...rest} /> : <Navigate to="/login" />}
+            element={isAuthenticated ? element : <Navigate to="/login" />}
         />
-
     );
 };
 
