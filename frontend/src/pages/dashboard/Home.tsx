@@ -2,13 +2,14 @@ import { Button } from "@/components/ui/button"
 
 
 function Home() {
-    
 
-    function handleLogout() {
-        fetch("http://localhost:5500/api/user/logout", {
+
+    async function handleLogout() {
+        const response = await fetch("http://localhost:5500/api/user/logout", {
             method: "post",
-            headers:{"Authorization":`bearer`}
+            // headers:{"Authorization":`bearer`}
         })
+        console.log(response)
     }
     return (
         <div>
