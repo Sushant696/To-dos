@@ -4,26 +4,21 @@ import { User } from "../models/user.models.js"
 import { Apierror } from "../utils/ApiErrorHandling.js"
 
 export const verifyJWT = asyncHandler(async (req, res, next) => {
-    try {
-        const token = req.cookies?.accessToken || req.header("Authorization")?.replace("bearer ", "");
 
-        if (!token) {
-            throw new Apierror(401, "unauthorized request");
-        }
+    const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "");
 
-        const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET) // verifying the token
-        const user = await User.findById(decodedToken?._id).select("-password -refreshToken")
-
-        if (!user) {
-            throw new Apierror(401, "Invalid Access token")
-        }
-
-        req.user = user; // giving user access to all the req through out our app where we have used the middleware verifyJWT
-        next();
-    } catch (error) {
-        throw new Apierror(401, "invalid access token")
+    if (!token) {
+        return res.status(401, {}, "Unauthorized request")
+        // throw new Apierror(401, "unauthorized request");
+    }
+    const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
+    const user = await User.findById(decodedToken?.id).select("-password -refreshToken")
+    if (!user) {
+        throw new Apierror(401, "Invalid Access token")
     }
 
+    req.user = user; // giving user access to all the req through out our app where we have used the middleware verifyJWT
+    next();
 
 })
 

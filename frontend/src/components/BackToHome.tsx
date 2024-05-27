@@ -9,6 +9,7 @@ function BackToHome() {
     return (
         <div>
             <Button onClick={handleNavigateToHome} className="bg-blue-600 text-white" variant="outline">{"< "} Back to Home</Button>
+            
         </div>
     )
 }
