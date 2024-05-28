@@ -1,4 +1,3 @@
-
 import { Route, Routes } from "react-router-dom";
 import Main from "../home/home";
 import Login from "../../auth/LoginForm";
@@ -13,30 +12,45 @@ import { useDispatch } from "react-redux";
 
 function Routing() {
   const dispatch = useDispatch();
+  // const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const isAuthenticated = document.cookie.includes('accessToken'); // 
-    dispatch(setAuth(isAuthenticated));
+    const fetchAuthStatus = async () => {
+      try {
+        const response = await fetch("http://localhost:5500/api/user/verifyUser", {
+          credentials: 'include'
+        });
+        const result = await response.json();
+        console.log(result.data.authentication, "result");
+        dispatch(setAuth(result.data.isAuthenticated));
+      } catch (error) {
+        console.error("Error fetching the data from the backend", error);
+        dispatch(setAuth(false));
+      } 
+      
+    };
 
-  }, [dispatch])
+    fetchAuthStatus();
+  }, []);
 
   return (
     <>
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/features" element={<Features />} />
+        {/* <Route path="/features" element={<Features />} /> */}
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/login" element={<Login />} />
-        <ProtectedRoute path="/login" element={<Features />} />
         <Route path="/sign-up" element={<CreateAccount />} />
+
+        {/* Protected Routes */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/home" element={<Features />} />
+          {/* Add more protected routes here */}
+        </Route>
       </Routes>
     </>
   );
 }
 
+
 export default Routing;
-
-
-
-// check for cookiess
-// dispatch an action setAuth(isAuthenticated)

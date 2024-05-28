@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 
 import { BrowserRouter as Router } from "react-router-dom";
 import Routing from "./pages/routing/routes";
-import SecuredRoutes from "./pages/routing/securedRoutes";
+// import SecuredRoutes from "./pages/routing/securedRoutes";
 import store from "./redux/store";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -13,7 +13,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <Provider store={store}>
       <Router>
         <Routing />
-        <SecuredRoutes />
+        {/* <SecuredRoutes /> */}
       </Router>
     </Provider >
   </React.StrictMode>

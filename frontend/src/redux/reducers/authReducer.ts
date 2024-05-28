@@ -18,6 +18,5 @@ const authSlice = createSlice({
   },
 });
 
-
-export const {setAuth} = authSlice.actions; // exporting the action to use in components
+export const { setAuth } = authSlice.actions; // exporting the action to use in components
 export default authSlice.reducer; // exporting the reducer to use in store.ts

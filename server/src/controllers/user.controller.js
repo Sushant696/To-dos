@@ -62,7 +62,8 @@ const loginUser = asyncHandler(async (req, res) => {
 
     const options = {
         httpOnly: true,
-        secure: true
+        secure: true,
+        sameSite: 'Strict',
     }
 
     return res
@@ -88,7 +89,9 @@ const logoutUser = asyncHandler(async (req, res) => {
     )
     const options = {
         httpOnly: true,
-        secure: true
+        secure: true,
+        sameSite: 'Strict',
+
     }
     return res
         .status(200)
@@ -140,5 +143,9 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
 
 })
 
-export { registerUser, loginUser, logoutUser, refreshAccessToken }
+const verifyAccessToken = asyncHandler(async (req, res) => {
+    return res.status(200).json(new ApiResponse(200, { isAuthenticated: true }));
+});
+
+export { registerUser, loginUser, logoutUser, refreshAccessToken, verifyAccessToken }
 

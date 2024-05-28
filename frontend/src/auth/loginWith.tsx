@@ -9,7 +9,7 @@ function AuthO() {
         <BackToHome />
       </div>
       <div className="m-2 w-full mt-12 mb-8 flex items-center">
-        <div className="m-2 container flex justify-center items-center gap-8  ">
+        <div className="m-2 container flex justify-center items-center gap-8">
           <div className="flex flex-col gap-[2rem]">
             <h1 className="title-text">
               Welcome to Sushant's To-Dos Tracking Web Application.
