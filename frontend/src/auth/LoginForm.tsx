@@ -13,7 +13,6 @@ type FormData = {
 };
 
 function Login() {
-  // const [loggedin, isLoggedin] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -156,3 +155,5 @@ function Login() {
 }
 
 export default Login;
+
+

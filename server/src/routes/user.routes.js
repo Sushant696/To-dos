@@ -7,7 +7,7 @@ userRouter.route('/register').post(registerUser)
 userRouter.route("/login").post(loginUser)
 
 // secured route
-userRouter.route("/logout").post(verifyJWT, logoutUser)
+userRouter.route("/logout").get(verifyJWT, logoutUser)
 userRouter.route("/refresh-token").post(refreshAccessToken)
 userRouter.route("/verifyUser").get(verifyJWT, verifyAccessToken)
 

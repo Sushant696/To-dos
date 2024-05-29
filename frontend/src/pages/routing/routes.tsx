@@ -3,35 +3,18 @@ import Main from "../home/home";
 import Login from "../../auth/LoginForm";
 import CreateAccount from "../../auth/CreateAccount";
 import Features from "../features";
-import { useEffect } from "react";
+
 import Pricing from "../pricing";
-import { setAuth } from "@/redux/reducers/authReducer";
 import ProtectedRoute from "@/components/ProtectedRoute";
-import { useDispatch } from "react-redux";
+import FetchAuthStatus from "@/utils/auth.middleware";
+// import { useEffect } from "react";
+
 
 
 function Routing() {
-  const dispatch = useDispatch();
-  // const [loading, setLoading] = useState(true);
+  FetchAuthStatus();
 
-  useEffect(() => {
-    const fetchAuthStatus = async () => {
-      try {
-        const response = await fetch("http://localhost:5500/api/user/verifyUser", {
-          credentials: 'include'
-        });
-        const result = await response.json();
-        console.log(result.data.authentication, "result");
-        dispatch(setAuth(result.data.isAuthenticated));
-      } catch (error) {
-        console.error("Error fetching the data from the backend", error);
-        dispatch(setAuth(false));
-      } 
-      
-    };
 
-    fetchAuthStatus();
-  }, []);
 
   return (
     <>
@@ -45,6 +28,8 @@ function Routing() {
         {/* Protected Routes */}
         <Route element={<ProtectedRoute />}>
           <Route path="/home" element={<Features />} />
+          <Route path="second" element={<Features />} />
+          {/* <Route path="/home" element={<Logout />} /> */}
           {/* Add more protected routes here */}
         </Route>
       </Routes>

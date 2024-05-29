@@ -6,9 +6,9 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 
 export const verifyJWT = asyncHandler(async (req, res, next) => {
     const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "");
-
+    console.log(req.cookies, "token")
     if (!token) {
-        return res.status(200).json(new ApiResponse(200, { isAuthenticated: false }, "Unauthorized request"));
+        return res.status(401).json(new ApiResponse(401, { isAuthenticated: false }, "Unauthorized request"));
     }
 
     try {
