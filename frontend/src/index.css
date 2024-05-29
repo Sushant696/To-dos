@@ -75,9 +75,11 @@
   }
 }
 
-
 .container {
   @apply mx-auto w-full px-4 md:w-4/5 xl:w-4/5 xl:p-0;
+}
+.container_todo {
+  @apply mx-auto w-full px-4 md:w-4/5 xl:w-3/6 xl:p-0;
 }
 .small-text {
   @apply text-xs text-blue-950 lg:text-sm;

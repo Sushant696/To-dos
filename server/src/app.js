@@ -7,7 +7,6 @@ const app = express();
 
 // configs using the use
 const allowedOrigins = ['http://localhost:5173'];
-
 const corsOptions = {
     origin: function (origin, callback) {
         // Check if the origin is in the allowedOrigins array or if origin is not provided (null or undefined)
