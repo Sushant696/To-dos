@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface AuthState {
-  isAuthenticated: boolean;
+  isAuthenticated: string | boolean;
 }
 
 const initialState: AuthState = {
-  isAuthenticated: false,
+  isAuthenticated: localStorage.getItem(`authStatus`) ?? false,
 };
 
 const authSlice = createSlice({
@@ -13,11 +13,13 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setAuth(state, action) {
-      state.isAuthenticated = action.payload; // data from action performed by user like login or logout
+      // data from action performed by user like login or logout
+      state.isAuthenticated = action.payload;
     },
   },
 });
 
-
-export const {setAuth} = authSlice.actions; // exporting the action to use in components
-export default authSlice.reducer; // exporting the reducer to use in store.ts
+// exporting the action to use in components
+export const { setAuth } = authSlice.actions;
+// exporting the reducer to use in store.ts
+export default authSlice.reducer;

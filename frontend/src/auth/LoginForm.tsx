@@ -1,6 +1,5 @@
 
 import { DevTool } from "@hookform/devtools";
-
 import { Divider } from "antd";
 import { useForm } from "react-hook-form";
 import AuthO from "./loginWith";
@@ -14,7 +13,6 @@ type FormData = {
 };
 
 function Login() {
-  // const [loggedin, isLoggedin] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -28,8 +26,6 @@ function Login() {
   });
   const { register, handleSubmit, formState, control } = form;
   const { errors } = formState;
-
-
 
   async function onSubmit(data: FormData) {
     console.log(data)
@@ -47,6 +43,7 @@ function Login() {
 
       const result = await response.json();
       setMessage(result.message)
+
 
       if (result.success) {
         navigate("/home")
@@ -158,3 +155,5 @@ function Login() {
 }
 
 export default Login;
+
+
