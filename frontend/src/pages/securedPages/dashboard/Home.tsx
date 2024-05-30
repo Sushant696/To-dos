@@ -2,6 +2,7 @@
 import TaskCard from "@/components/taskCard";
 import { Add } from "iconsax-react";
 import { useState } from "react";
+import DisplayTodos from "./DisplayTodos";
 
 
 function SecuredHome() {
@@ -19,9 +20,7 @@ function SecuredHome() {
         <div className="container_todo">
             <h1 className="subtitle-text font-semibold">Today</h1>
             <h1> {getMonth()} {date.getDay()}</h1>
-            <div className="mt-4">
-                {/* <Button>Add Task</Button> */}
-                {/* <AddTodos /> */}
+            <div className="my-4">
                 <button
                     type="submit"
                     className="flex items-center gap-2"
@@ -31,6 +30,7 @@ function SecuredHome() {
                 </button>
             </div>
             {taskEditor && <TaskCard setTaskEditor={setTaskEditor} />}
+            <DisplayTodos />
         </div>
     )
 }
