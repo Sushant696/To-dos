@@ -5,21 +5,20 @@ import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import Routing from "./pages/routing/routes";
 import store from "./redux/store";
-import { QueryClient, QueryClientProvider } from 'react-query';
-// import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient} >
+      <Provider store={store}>
         <Router>
           <Routing />
           {/* <SecuredRoutes /> */}
         </Router>
-        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
-      </QueryClientProvider>
-    </Provider>
+      </Provider>
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+    </QueryClientProvider>
   </React.StrictMode>
 );
