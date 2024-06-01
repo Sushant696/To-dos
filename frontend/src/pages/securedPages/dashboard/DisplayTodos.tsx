@@ -1,14 +1,13 @@
-
 import axios from "axios";
-import { useQuery } from 'react-query';
-
+import { useQuery } from '@tanstack/react-query';
+import { useDeleteTodo } from "@/hooks/useDeleteTodos";
+import { Button } from "antd";
 
 interface Task {
-    id: string;
+    _id: string;
     title: string;
     description: string;
 }
-
 
 function DisplayTodos() {
 
@@ -17,20 +16,35 @@ function DisplayTodos() {
         return response.data.Todos;
     };
 
-    const { data, error, isLoading } = useQuery<Task[], Error>('todos', useFetchTodos);
+    const { data, error, isLoading } = useQuery<Task[], Error>({
+        queryKey: ['todos'],
+        queryFn: useFetchTodos
+    });
+
+    const deleteTodoMutation = useDeleteTodo();
+
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Request Failed: {error.message}</div>;
+
+    function handleDelete(id: string) {
+        deleteTodoMutation.mutate(id);
+    }
 
     return (
         <div>
             <ul className=''>
-                {data?.map((task, index) => (
-                    <li key={index} className='mt-5 shadow-lg rounded-md p-4'>
+                {data?.map((task) => (
+                    <li key={task._id} className='mt-5 shadow-lg rounded-md p-4'>
                         <h2 className='medium-text font-bold'>{task.title}</h2>
                         <p>{task.description}</p>
+                        <Button
+                            onClick={() => { handleDelete(task._id); }}
+                            className="bg-[#FFD0C1] mt-2"
+                        >
+                            Delete
+                        </Button>
                     </li>
                 ))}
-
             </ul>
         </div>
     );
