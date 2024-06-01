@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import { useQuery } from '@tanstack/react-query';
 import { useDeleteTodo } from "@/hooks/useDeleteTodos";
@@ -26,7 +27,7 @@ function DisplayTodos() {
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Request Failed: {error.message}</div>;
 
-    function handleDelete(id: string) {
+    function handleDelete(id: any) {
         deleteTodoMutation.mutate(id);
     }
 

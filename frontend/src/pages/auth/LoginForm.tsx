@@ -27,7 +27,7 @@ function Login() {
   const { register, handleSubmit, formState, control } = form;
   const { errors } = formState;
 
-  const { mutate, isLoading } = useLoginUser();
+  const { mutate, isPending } = useLoginUser();
 
   const onSubmit = (formData: FormData) => {
     mutate(formData, {
@@ -114,9 +114,9 @@ function Login() {
                 <button
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   type="submit"
-                  disabled={isLoading}
+                  disabled={isPending}
                 >
-                  {isLoading ? "Signing In..." : "Sign In"}
+                  {isPending ? "Signing In..." : "Sign In"}
                 </button>
                 {/* Or divider */}
                 <Divider style={{ color: "#111", border: "#666 0.5px " }}>
