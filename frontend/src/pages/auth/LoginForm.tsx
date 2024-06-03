@@ -8,6 +8,7 @@ import BackToHome from "@/components/BackToHome";
 import { useState } from "react";
 import { useLoginUser } from "@/hooks/useLoginUser";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 type FormData = {
   username: string;
@@ -123,12 +124,20 @@ function Login() {
                   Or
                 </Divider>
                 {/* Create account button */}
-                <button
+                <Link to="/sign-up">
+                  <button
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    type="button"
+                  >
+                    Sign Up
+                  </button>
+                </Link>
+                {/* <button
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   type="button"
                 >
                   Sign Up
-                </button>
+                </button> */}
               </div>
             </form>
             <DevTool control={control} />

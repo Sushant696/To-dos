@@ -5,7 +5,9 @@ import { defineConfig } from "vite";
 export default defineConfig({
   server: {
     proxy: {
-      "/api": "http://localhost:5500",
+      "/api":
+      //  "http://localhost:5500" ||
+       "https://taskly-55pj.onrender.com",
     },
   },
   plugins: [react()],

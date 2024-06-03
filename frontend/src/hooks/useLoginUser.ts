@@ -6,14 +6,17 @@ type FormDataType = {
 };
 
 async function postUserDetails(formData: FormDataType) {
-  const response = await fetch("http://localhost:5500/api/user/login", {
-    method: "post",
-    headers: {
-      "content-type": "application/json",
-    },
-    body: JSON.stringify(formData),
-    credentials: "include",
-  });
+  const response = await fetch(
+    "https://taskly-55pj.onrender.com/api/todo/getTodo",
+    {
+      method: "post",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(formData),
+      credentials: "include",
+    }
+  );
   return response.json();
 }
 

@@ -25,7 +25,7 @@ function TaskCard({ setTaskEditor }: TaskCardProps) {
     });
 
     const postTodo = async (data: FormData) => {
-        const response = await fetch("http://localhost:5500/api/todo/addTodo", {
+        const response = await fetch("https://taskly-55pj.onrender.com/api/todo/addTodo", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -55,7 +55,7 @@ function TaskCard({ setTaskEditor }: TaskCardProps) {
             onSuccess: () => {
                 reset();
                 handleCloseMenu();
-             }
+            }
         });
     };
 
