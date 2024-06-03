@@ -21,10 +21,12 @@ function Routing() {
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/sign-up" element={<CreateAccount />} />
+        <Route path="/home" element={<SecuredHome />} />
+
 
         {/* Protected Routes */}
         <Route element={<ProtectedRoute />}>
-          <Route path="/home" element={<SecuredHome />} />
+          <Route path="/home1" element={<SecuredHome />} />
           {/* <Route path="/home" element={<Logout />} /> */}
         </Route>
       </Routes>
