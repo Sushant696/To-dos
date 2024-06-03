@@ -32,7 +32,7 @@ function CreateAccount() {
   async function onSubmit(data: FormData) {
     setLoading(true)
     try {
-      const response = await fetch("http://localhost:5500/api/user/register", {
+      const response = await fetch("https://taskly-55pj.onrender.com/api/user/register", {
         method: "post",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(data)
