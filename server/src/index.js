@@ -5,7 +5,7 @@ import { app } from "./app.js";
 dotenv.config();
 connection()
   .then(() => {
-    app.listen(process.env.PORT || 8082);
+    app.listen(process.env.PORT || 5501);
     //listening to error event
     app.on("error", () => {
       console.log("error");
