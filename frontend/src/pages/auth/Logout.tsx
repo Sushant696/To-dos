@@ -13,7 +13,6 @@ export default function Logout() {
             navigate("/")
         }
     }
-
     return (
         <Button onClick={handleLogout}>
             Logout

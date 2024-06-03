@@ -1,4 +1,5 @@
-const { MongoClient } = require("mongodb");
+// const { MongoClient } = require("mongodb");
+import MongoClient from "mongodb"
 const uri = process.env.DATABASE_URI;
 console.log(uri);
 console.log("hello");
