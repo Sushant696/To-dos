@@ -6,7 +6,7 @@
   "main": "main.js",
   "scripts": {
     "dev": "nodemon -r dotenv/config --experimental-json-modules src/index.js",
-    "build": "build"
+    "start": "node src/index.js"
   },
   "keywords": [
     "no",
