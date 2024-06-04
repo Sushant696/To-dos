@@ -7,7 +7,7 @@ interface deleteTodoType {
 
 const deleteTodos = async (id: deleteTodoType) => {
   const response = await axios.post(
-    "http://localhost:5500/api/todo/deleteTodo",
+    "https://taskly-55pj.onrender.com/api/todo/deleteTodo",
     { id }
   );
   return response.data;
