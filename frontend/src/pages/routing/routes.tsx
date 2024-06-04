@@ -7,7 +7,8 @@ import Features from "../features";
 import Pricing from "../pricing";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import FetchAuthStatus from "@/utils/auth.middleware";
-import SecuredHome from "../securedPages/dashboard/Home";
+// import SecuredHome from "../securedPages/dashboard/Home";
+import TodoHome from "../securedPages/home";
 
 
 function Routing() {
@@ -21,12 +22,12 @@ function Routing() {
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/sign-up" element={<CreateAccount />} />
-        <Route path="/home" element={<SecuredHome />} />
+        <Route path="/home" element={<TodoHome />} />
 
 
         {/* Protected Routes */}
         <Route element={<ProtectedRoute />}>
-          <Route path="/home1" element={<SecuredHome />} />
+          <Route path="/home1" element={<TodoHome />} />
           {/* <Route path="/home" element={<Logout />} /> */}
         </Route>
       </Routes>

@@ -1,8 +1,11 @@
+import SideMenu from "@/components/sidebar"
+import SecuredHome from "../dashboard/Home"
 
 function TodoHome() {
     return (
-        <div>
-
+        <div className="flex">
+            <SideMenu />
+            <SecuredHome />
         </div>
     )
 }

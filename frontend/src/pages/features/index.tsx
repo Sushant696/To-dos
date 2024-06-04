@@ -1,4 +1,4 @@
-import Logout from "@/pages/auth/Logout"
+// import Logout from "@/pages/auth/Logout"
 import Navbar from "../../components/navbar"
 import { Link } from "react-router-dom"
 
@@ -7,7 +7,7 @@ function Features() {
         <div>
             <Navbar />
             Here are the features of my todo application
-            <Logout />
+            {/* <Logout /> */}
             <Link to={"/second"}>second</Link>
         </div>
     )
