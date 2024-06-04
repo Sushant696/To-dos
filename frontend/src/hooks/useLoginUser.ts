@@ -9,7 +9,7 @@ async function postUserDetails(formData: FormDataType) {
   const response = await fetch(
     "https://taskly-55pj.onrender.com/api/user/login",
     {
-      method: "post",
+      method: "POST",
       headers: {
         "content-type": "application/json",
       },
