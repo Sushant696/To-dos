@@ -122,3 +122,20 @@
 .nav-link:hover {
   text-decoration: none;
 }
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.top-menu {
+  padding-top: 20px;
+}
+
+.bottom-menu {
+  padding-bottom: 20px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}

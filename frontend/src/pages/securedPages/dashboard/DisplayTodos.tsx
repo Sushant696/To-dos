@@ -35,12 +35,12 @@ function DisplayTodos() {
         <div>
             <ul className=''>
                 {data?.map((task) => (
-                    <li key={task._id} className='mt-5 shadow-lg rounded-md p-4'>
+                    <li key={task._id} className='mt-6 shadow-xl rounded-md p-4'>
                         <h2 className='medium-text font-bold'>{task.title}</h2>
                         <p>{task.description}</p>
                         <Button
                             onClick={() => { handleDelete(task._id); }}
-                            className="bg-[#FFD0C1] mt-2"
+                            className="bg-[#4285F4] mt-2 text-white"
                         >
                             Delete
                         </Button>

@@ -17,6 +17,7 @@ async function postUserDetails(formData: FormDataType) {
       credentials: "include",
     }
   );
+  console.log(response, "response");
   return response.json();
 }
 

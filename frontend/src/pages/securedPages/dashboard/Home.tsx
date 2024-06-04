@@ -3,7 +3,7 @@ import TaskCard from "@/components/taskCard";
 import { Add } from "iconsax-react";
 import { useState } from "react";
 import DisplayTodos from "./DisplayTodos";
-import SideBar from "@/components/sidebar";
+// import SideBar from "@/components/sidebar";
 
 
 function SecuredHome() {
@@ -19,7 +19,6 @@ function SecuredHome() {
 
     return (
         <div className="container_todo">
-            <SideBar />
             <h1 className="subtitle-text font-semibold">Today</h1>
             <h1> {getMonth()} {date.getDay()}</h1>
             <div className="my-4">
@@ -28,7 +27,7 @@ function SecuredHome() {
                     className="flex items-center gap-2"
                     onClick={handleTaskAdd}
                 >
-                    <Add size="32" color="#FF8A65" variant="Bulk" /> Add Task
+                    <Add size="32" color="#4285F4" variant="Bulk" /> Add Task
                 </button>
             </div>
             {taskEditor && <TaskCard setTaskEditor={setTaskEditor} />}

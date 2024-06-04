@@ -36,6 +36,7 @@ function Login() {
         if (data.success) {
           navigate("/home");
           setMessage("Login successful!");
+          console.log("login successful")
         } else {
           setMessage(data.message);
         }
