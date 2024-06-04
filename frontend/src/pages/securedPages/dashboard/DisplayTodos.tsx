@@ -13,7 +13,7 @@ interface Task {
 function DisplayTodos() {
 
     const useFetchTodos = async () => {
-        const response = await axios.get("api/todo/getTodo");
+        const response = await axios.get("https://taskly-55pj.onrender.com/api/todo/getTodo");
         return response.data.Todos;
     };
 
