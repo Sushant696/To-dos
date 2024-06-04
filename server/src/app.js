@@ -2,16 +2,18 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import cors from 'cors'
 const app = express();
-// making custom cors options 
 
+const allowedOrigins = ['https://to-dos-khaki.vercel.app', 'http://localhost:5173'];
 
-// configs using the use
-// const allowedOrigins = ['https://to-dos-khaki.vercel.app/'];
-
-const allowedOrigins = ['https://to-dos-khaki.vercel.app/', 'http://localhost:5173'];
 const corsOptions = {
-    origin: allowedOrigins,
     credentials: true,
+    origin: function (origin, callback) {
+        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    }
 };
 
 app.use(cors(corsOptions));
