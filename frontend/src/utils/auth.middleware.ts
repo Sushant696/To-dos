@@ -12,6 +12,7 @@ const FetchAuthStatus = async () => {
         credentials: "include",
       }
     );
+    console.log("response", response);
     const result = await response.json();
     localStorage.setItem("authStatus", result.data.isAuthenticated);
     dispatch(setAuth(result.data.isAuthenticated));
