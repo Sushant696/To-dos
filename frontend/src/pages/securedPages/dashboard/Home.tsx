@@ -3,6 +3,7 @@ import TaskCard from "@/components/taskCard";
 import { Add } from "iconsax-react";
 import { useState } from "react";
 import DisplayTodos from "./DisplayTodos";
+import SideBar from "@/components/sidebar";
 
 
 function SecuredHome() {
@@ -18,6 +19,7 @@ function SecuredHome() {
 
     return (
         <div className="container_todo">
+            <SideBar />
             <h1 className="subtitle-text font-semibold">Today</h1>
             <h1> {getMonth()} {date.getDay()}</h1>
             <div className="my-4">
@@ -31,6 +33,7 @@ function SecuredHome() {
             </div>
             {taskEditor && <TaskCard setTaskEditor={setTaskEditor} />}
             <DisplayTodos />
+
         </div>
     )
 }
