@@ -63,7 +63,7 @@ const loginUser = asyncHandler(async (req, res) => {
     const options = {
         httpOnly: true,
         secure: true,
-        // sameSite: 'Strict',
+        sameSite: 'none',
     }
 
     return res
@@ -106,6 +106,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
 
     // access incomming token
     const incommingRefreshToken = req.cookies.refreshToken || req.body.refreshToken;
+    console.log(incommingRefreshToken, "incommingRefreshToken")
     if (!incommingRefreshToken) {
         throw new Apierror(401, "Unauthorized request")
     }
@@ -145,7 +146,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
 })
 
 const verifyAccessToken = asyncHandler(async (req, res) => {
-    return res.status(200).json(new ApiResponse(200, { isAuthenticated: true }));
+    return res.status(200).json(new ApiResponse(200, { isAuthenticated: true }, "User is authenticated"));
 });
 
 export { registerUser, loginUser, logoutUser, refreshAccessToken, verifyAccessToken }

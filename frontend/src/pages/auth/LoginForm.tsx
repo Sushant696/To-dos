@@ -34,9 +34,9 @@ function Login() {
     mutate(formData, {
       onSuccess: (data) => {
         if (data.success) {
-          navigate("/home");
-          setMessage("Login successful!");
           console.log("login successful")
+          navigate("/private");
+          setMessage("Login successful!");
         } else {
           setMessage(data.message);
         }
@@ -133,12 +133,7 @@ function Login() {
                     Sign Up
                   </button>
                 </Link>
-                {/* <button
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                  type="button"
-                >
-                  Sign Up
-                </button> */}
+
               </div>
             </form>
             <DevTool control={control} />
