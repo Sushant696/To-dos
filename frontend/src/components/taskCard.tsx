@@ -38,7 +38,7 @@ function TaskCard({ setTaskEditor }: TaskCardProps) {
         return response.json();
     };
 
-    const mutation = useMutation({
+    const { mutate, isPending } = useMutation({
         mutationFn: postTodo,
         onSuccess: () => {
             // Invalidate and refetch
@@ -51,7 +51,7 @@ function TaskCard({ setTaskEditor }: TaskCardProps) {
     }
 
     const onSubmit = (data: FormData) => {
-        mutation.mutate(data, {
+        mutate(data, {
             onSuccess: () => {
                 reset();
                 handleCloseMenu();
@@ -81,7 +81,7 @@ function TaskCard({ setTaskEditor }: TaskCardProps) {
                     </div>
                     <CardFooter className="flex justify-end gap-6 mt-6">
                         <Button onClick={handleCloseMenu} variant="outline">Cancel</Button>
-                        <Button type="submit">Add Task</Button>
+                        <Button type="submit" disabled={isPending}>{isPending? "Adding":"Add task"}</Button>
                     </CardFooter>
                 </form>
             </CardContent>

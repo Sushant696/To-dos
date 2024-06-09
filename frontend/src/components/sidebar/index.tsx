@@ -1,12 +1,13 @@
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { useState } from "react";
 import { AddCircle, Calendar, DirectInbox, Home2, SearchNormal, ArrowRight2, LogoutCurve, Setting2 } from "iconsax-react";
+import Logout from "@/pages/auth/Logout";
 
 function SideMenu() {
     const [collapsed, setCollapsed] = useState(false);
 
     return (
-        <div style={{ display: "flex", alignItems:"center", position: "fixed" }}>
+        <div style={{ display: "flex", alignItems: "center", position: "fixed" }}>
             <Sidebar collapsed={collapsed} transitionDuration={1200} className="sidebar" rootStyles={{ height: "100vh" }}>
                 <div className="top-menu">
                     <Menu>
@@ -20,7 +21,7 @@ function SideMenu() {
                 <div className="bottom-menu">
                     <Menu>
                         <MenuItem icon={<Setting2 size="32" color="#4285F4" variant="Bulk" />}> Settings </MenuItem>
-                        <MenuItem icon={<LogoutCurve size="32" color="#4285F4" variant="Bulk" />}> Logout </MenuItem>
+                        <MenuItem icon={<LogoutCurve size="32" color="#4285F4" variant="Bulk" />}> <Logout /> </MenuItem>
                     </Menu>
                 </div>
             </Sidebar>
