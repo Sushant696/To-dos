@@ -25,7 +25,6 @@ export function useLoginUser() {
     mutationFn: postUserDetails,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["user"] });
-      // queryClient.refetchQueries({ queryKey: ["user"] });
     },
   });
 }
