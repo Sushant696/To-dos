@@ -34,7 +34,6 @@ function Login() {
     mutate(formData, {
       onSuccess: (data) => {
         if (data.success) {
-          console.log("login successful")
           navigate("/private");
           setMessage("Login successful!");
         } else {

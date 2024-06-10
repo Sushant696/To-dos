@@ -8,7 +8,6 @@ async function userAuthStatus() {
     },
     credentials: "include",
   });
-  console.log(response, "response");
   const result = await response.json();
   return result;
 }
