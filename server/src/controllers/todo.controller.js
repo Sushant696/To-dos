@@ -59,4 +59,4 @@ const editTodos = asyncHandler(async (req, res) => {
     return res.json(new ApiResponse(200, {}, "Edit todos"))
 })
 
-export { addTodo, sendTodos, deleteTodos }
+export { addTodo, sendTodos, deleteTodos, editTodos }

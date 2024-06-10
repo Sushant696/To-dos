@@ -6,9 +6,9 @@ interface deleteTodoType {
 }
 
 const deleteTodos = async (id: deleteTodoType) => {
-  const response = await axios.post(
+  const response = await axios.patch(
     "https://taskly-55pj.onrender.com/api/todo/deleteTodo",
-    { id }
+    { id } 
   );
   return response.data;
 };
