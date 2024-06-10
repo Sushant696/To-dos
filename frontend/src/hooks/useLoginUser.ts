@@ -23,6 +23,7 @@ export function useLoginUser() {
   return useMutation({
     mutationFn: postUserDetails,
     onSuccess: () => {
+      
       queryClient.invalidateQueries({ queryKey: ["user"] });
     },
   });

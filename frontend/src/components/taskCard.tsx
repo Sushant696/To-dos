@@ -4,6 +4,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import axios from "axios";
+
 
 type TaskCardProps = {
     setTaskEditor: (value: boolean) => void;
@@ -25,17 +27,18 @@ function TaskCard({ setTaskEditor }: TaskCardProps) {
     });
 
     const postTodo = async (data: FormData) => {
-        const response = await fetch("https://taskly-55pj.onrender.com/api/todo/addTodo", {
-            method: "POST",
+        const response = await axios.post("https://taskly-55pj.onrender.com/api/todo/addTodo", {
+
+            withCredentials: true,
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(data)
         });
-        if (!response.ok) {
+        if (!response.statusText) {
             throw new Error('Failed to add todo');
         }
-        return response.json();
+        return response;
     };
 
     const { mutate, isPending } = useMutation({
@@ -81,7 +84,7 @@ function TaskCard({ setTaskEditor }: TaskCardProps) {
                     </div>
                     <CardFooter className="flex justify-end gap-6 mt-6">
                         <Button onClick={handleCloseMenu} variant="outline">Cancel</Button>
-                        <Button type="submit" disabled={isPending}>{isPending? "Adding":"Add task"}</Button>
+                        <Button type="submit" disabled={isPending}>{isPending ? "Adding" : "Add task"}</Button>
                     </CardFooter>
                 </form>
             </CardContent>
