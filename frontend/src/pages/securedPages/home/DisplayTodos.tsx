@@ -30,6 +30,9 @@ function DisplayTodos() {
     function handleDelete(id: any) {
         mutate(id);
     }
+    function handleEditTodos(id: string) {
+        console.log("Edit todo successful", id)
+    }
 
     return (
         <div>
@@ -53,8 +56,9 @@ function DisplayTodos() {
                             </div>
                             <Button
                                 className="border-none "
+                                onClick={() => { handleEditTodos(task._id) }}
                             >
-                                <FaEdit size={24} color="#4285F4"/>
+                                <FaEdit size={24} color="#4285F4" />
                             </Button>
                         </div>
                     </li>

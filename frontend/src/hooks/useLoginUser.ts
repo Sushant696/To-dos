@@ -15,7 +15,6 @@ async function postUserDetails(formData: FormDataType) {
     body: JSON.stringify(formData),
     credentials: "include",
   });
-  console.log(response, "response");
   return response.json();
 }
 

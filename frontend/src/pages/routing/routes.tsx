@@ -6,7 +6,6 @@ import Features from "../features";
 
 import Pricing from "../pricing";
 import ProtectedRoute from "@/components/ProtectedRoute";
-
 import TodoHome from "../securedPages/home";
 
 

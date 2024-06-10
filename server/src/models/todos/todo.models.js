@@ -11,7 +11,7 @@ const TodoSchema = new mongoose.Schema(
     complete: {
       type: Boolean,
       default: false,
-    },
+    }, 
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user", // ref from user schema (the one inside model while exporting)
