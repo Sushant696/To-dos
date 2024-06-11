@@ -9,7 +9,10 @@ type updateTodoType = {
 async function updateTodo(data: updateTodoType) {
   const response = await axios.patch(
     "https://taskly-55pj.onrender.com/api/editTodo",
-    data
+    data,
+    {
+      withCredentials: true,
+    }
   );
   return response;
 }
@@ -19,7 +22,7 @@ export const useUpdateTodo = () => {
   return useMutation({
     mutationFn: updateTodo,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["todo"] });
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
   });
 };

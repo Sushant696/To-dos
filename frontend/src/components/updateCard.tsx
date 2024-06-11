@@ -3,12 +3,11 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import axios from "axios";
+import { useUpdateTodo } from "@/hooks/useUpdateTodos";
 
 
-type TaskCardProps = {
-    setTaskEditor: (value: boolean) => void;
+type UpdateCardPropsType = {
+    setUpdateCard: (value: boolean) => void;
 };
 
 type FormData = {
@@ -16,8 +15,8 @@ type FormData = {
     description: string;
 };
 
-function TaskCard({ setTaskEditor }: TaskCardProps) {
-    const queryClient = useQueryClient();
+export function UpdateCard({ setUpdateCard }: UpdateCardPropsType) {
+    const { mutate: updateTodo, isPending } = useUpdateTodo();
 
 
     const { register, handleSubmit, reset } = useForm<FormData>({
@@ -27,35 +26,12 @@ function TaskCard({ setTaskEditor }: TaskCardProps) {
         }
     });
 
-    const postTodo = async (data: FormData) => {
-        const response = await axios.post("https://taskly-55pj.onrender.com/api/todo/addTodo", {
-
-            // withCredentials: true,
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data)
-        });
-        if (!response.statusText) {
-            throw new Error('Failed to add todo');
-        }
-        return response;
-    };
-
-    const { mutate, isPending } = useMutation({
-        mutationFn: postTodo,
-        onSuccess: () => {
-            // Invalidate and refetch
-            queryClient.invalidateQueries({ queryKey: ['todos'] })
-        },
-    })
-
     function handleCloseMenu() {
-        setTaskEditor(false);
+        setUpdateCard(false);
     }
 
     const onSubmit = (data: FormData) => {
-        mutate(data, {
+        updateTodo(data, {
             onSuccess: () => {
                 reset();
                 handleCloseMenu();
@@ -85,7 +61,7 @@ function TaskCard({ setTaskEditor }: TaskCardProps) {
                     </div>
                     <CardFooter className="flex justify-end gap-6 mt-6">
                         <Button onClick={handleCloseMenu} variant="outline">Cancel</Button>
-                        <Button type="submit" disabled={isPending}>{isPending ? "Adding" : "Add task"}</Button>
+                        <Button type="submit" disabled={isPending}>{isPending ? "Editing" : "Edit"}</Button>
                     </CardFooter>
                 </form>
             </CardContent>
@@ -93,5 +69,3 @@ function TaskCard({ setTaskEditor }: TaskCardProps) {
     );
 }
 
-export default TaskCard;
- 
