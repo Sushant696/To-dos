@@ -4,7 +4,9 @@ import { useQuery } from '@tanstack/react-query';
 import { useDeleteTodo } from "@/hooks/useDeleteTodos";
 import { Button } from "antd";
 import { FaEdit } from "react-icons/fa";
-import { useUpdateTodo } from "@/hooks/useUpdateTodos";
+import { useState } from "react";
+// import { UpdateCard } from "@/components/updateCard";
+import { UpdateCard } from "../../../components/updateCard.tsx"
 
 interface Task {
     _id: string;
@@ -13,6 +15,8 @@ interface Task {
 }
 
 function DisplayTodos() {
+    const [updateCard, setUpdateCard] = useState<boolean>(false)
+
 
     const useFetchTodos = async () => {
         const response = await axios.get("https://taskly-55pj.onrender.com/api/todo/getTodo", {
@@ -27,7 +31,6 @@ function DisplayTodos() {
     });
 
     const { mutate: deletetodo, isPending: isDeleting } = useDeleteTodo();
-    const { mutate: updateTodo, isPending: isUpdating } = useUpdateTodo();
 
 
     if (isLoading) return <div>Loading...</div>;
@@ -38,8 +41,7 @@ function DisplayTodos() {
     }
     function handleEditTodos(title: string, description: string) {
         const data = { title, description }
-        updateTodo(data)
-        console.log("Edit todo successful", title)
+        console.log("Edit todo successful", data)
     }
 
     return (
@@ -65,7 +67,6 @@ function DisplayTodos() {
                             <Button
                                 className="border-none "
                                 onClick={() => { handleEditTodos(task.title, task.description) }}
-                                disabled={isUpdating}
 
                             >
                                 <FaEdit size={24} color="#4285F4" />
@@ -74,6 +75,7 @@ function DisplayTodos() {
                     </li>
                 ))}
             </ul>
+            {updateCard && <UpdateCard setUpdateCard={setUpdateCard} />}
         </div>
     );
 }
