@@ -3,63 +3,40 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import axios from "axios";
-
+import useAddTodos from "@/hooks/useAddTodos";
 
 type TaskCardProps = {
     setTaskEditor: (value: boolean) => void;
 };
 
-type FormData = {
+type FormDataProps = {
     title: string;
     description: string;
 };
 
 function TaskCard({ setTaskEditor }: TaskCardProps) {
-    const queryClient = useQueryClient();
-
-
-    const { register, handleSubmit, reset } = useForm<FormData>({
+    const { register, handleSubmit, reset } = useForm<FormDataProps>({
         defaultValues: {
             title: "",
             description: ""
         }
     });
 
-    const postTodo = async (data: FormData) => {
-        const response = await axios.post("https://taskly-55pj.onrender.com/api/todo/addTodo", {
-
-            // withCredentials: true,
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data)
-        });
-        if (!response.statusText) {
-            throw new Error('Failed to add todo');
-        }
-        return response;
-    };
-
-    const { mutate, isPending } = useMutation({
-        mutationFn: postTodo,
-        onSuccess: () => {
-            // Invalidate and refetch
-            queryClient.invalidateQueries({ queryKey: ['todos'] })
-        },
-    })
+    const { mutate, isPending } = useAddTodos();
 
     function handleCloseMenu() {
         setTaskEditor(false);
     }
 
-    const onSubmit = (data: FormData) => {
+    const onSubmit = (data: FormDataProps) => {
         mutate(data, {
             onSuccess: () => {
                 reset();
                 handleCloseMenu();
-            }
+            },
+            onError: (error) => {
+                console.error("Mutation error occurred:", error);
+            },
         });
     };
 
@@ -72,12 +49,14 @@ function TaskCard({ setTaskEditor }: TaskCardProps) {
                             <Input
                                 {...register("title", { required: true })}
                                 id="title"
+                                required
                                 className="placeholder:text-slate-400 placeholder:font-semibold medium-text"
                                 placeholder="Task name"
                             />
                             <Textarea
                                 {...register("description", { required: true })}
                                 id="description"
+                                required
                                 className=""
                                 placeholder="Task description"
                             />
@@ -94,4 +73,3 @@ function TaskCard({ setTaskEditor }: TaskCardProps) {
 }
 
 export default TaskCard;
- 

@@ -7,7 +7,6 @@ const addTodo = asyncHandler(async (req, res) => {
 
     const { title, description } = req.body
 
-
     const user = req.user;
     if (!user) {
         return res.status(401).json(new ApiResponse(401, {}, "Unauthorized"));

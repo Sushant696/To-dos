@@ -11,6 +11,10 @@ const userSchema = new mongoose.Schema(
       unique: true,
       lowercase: true,
     },
+    fullName: {
+      type: String,
+      required: true,
+    },
     email: {
       type: String,
       required: true,
@@ -22,9 +26,26 @@ const userSchema = new mongoose.Schema(
       unique: true,
       min: [6, "password must be atleast 6 characters"],
     },
+    education: {
+      type: String,
+      // required: true,
+    },
+    skills: {
+      type: [],
+      // required: true,
+    },
     refreshToken: {
       type: String
-    }
+    },
+    avatar: {
+      type: String, // cloudinary will return url string
+      // required: true,
+
+    },
+    role: {
+      type: String,
+      // default: "user"
+    },
   },
   { timestamps: true }
 );

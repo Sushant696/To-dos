@@ -2,7 +2,7 @@
 import TaskCard from "@/components/taskCard";
 import { Add } from "iconsax-react";
 import { useState } from "react";
-import DisplayTodos from "./DisplayTodos";
+import DisplayTodos from "./Todos";
 // import SideBar from "@/components/sidebar";
 
 
@@ -12,10 +12,7 @@ function SecuredHome() {
     const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     const getMonth = () => { return month[date.getMonth()] }
 
-    function handleTaskAdd() {
-        // console.log("Task Added")
-        setTaskEditor(true)
-    }
+    function handleTaskAdd() { setTaskEditor(true) }
 
     return (
         <div className="container_todo">
@@ -32,9 +29,9 @@ function SecuredHome() {
             </div>
             {taskEditor && <TaskCard setTaskEditor={setTaskEditor} />}
             <DisplayTodos />
-
         </div>
     )
 }
 
 export default SecuredHome
+ 

@@ -5,9 +5,15 @@ import { Textarea } from "@/components/ui/textarea";
 import { useForm } from "react-hook-form";
 import { useUpdateTodo } from "@/hooks/useUpdateTodos";
 
+interface Task {
+    _id?: string;
+    title: string;
+    description: string;
+}
 
 type UpdateCardPropsType = {
-    setUpdateCard: (value: boolean) => void;
+    setEditTask: (value: boolean) => void;
+    editTaskData: Task;
 };
 
 type FormData = {
@@ -15,19 +21,19 @@ type FormData = {
     description: string;
 };
 
-export function UpdateCard({ setUpdateCard }: UpdateCardPropsType) {
+export function UpdateCard({ setEditTask, editTaskData }: UpdateCardPropsType) {
     const { mutate: updateTodo, isPending } = useUpdateTodo();
-
+    const { title, description } = editTaskData;
 
     const { register, handleSubmit, reset } = useForm<FormData>({
         defaultValues: {
-            title: "",
-            description: ""
+            title,
+            description
         }
     });
 
     function handleCloseMenu() {
-        setUpdateCard(false);
+        setEditTask(false);
     }
 
     const onSubmit = (data: FormData) => {
@@ -40,15 +46,15 @@ export function UpdateCard({ setUpdateCard }: UpdateCardPropsType) {
     };
 
     return (
-        <Card className="w-4/9 p-1">
-            <CardContent>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="grid w-full items-center gap-2">
-                        <div className="flex flex-col">
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
+            <Card className="w-[600px]">
+                <CardContent className="p-4">
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <div className="grid grid-cols-1 gap-4">
                             <Input
                                 {...register("title", { required: true })}
                                 id="title"
-                                className="placeholder:text-slate-400 placeholder:font-semibold medium-text"
+                                className="placeholder:text-slate-400 placeholder:font-semibold medium-text border-b-2 rounded-none"
                                 placeholder="Task name"
                             />
                             <Textarea
@@ -58,14 +64,13 @@ export function UpdateCard({ setUpdateCard }: UpdateCardPropsType) {
                                 placeholder="Task description"
                             />
                         </div>
-                    </div>
-                    <CardFooter className="flex justify-end gap-6 mt-6">
-                        <Button onClick={handleCloseMenu} variant="outline">Cancel</Button>
-                        <Button type="submit" disabled={isPending}>{isPending ? "Editing" : "Edit"}</Button>
-                    </CardFooter>
-                </form>
-            </CardContent>
-        </Card>
+                        <CardFooter className="flex justify-end mt-6">
+                            <Button onClick={handleCloseMenu} variant="outline">Cancel</Button>
+                            <Button type="submit" disabled={isPending}>{isPending ? "Editing" : "Edit"}</Button>
+                        </CardFooter>
+                    </form>
+                </CardContent>
+            </Card>
+        </div>
     );
 }
-

@@ -5,18 +5,21 @@ import { useDeleteTodo } from "@/hooks/useDeleteTodos";
 import { Button } from "antd";
 import { FaEdit } from "react-icons/fa";
 import { useState } from "react";
-// import { UpdateCard } from "@/components/updateCard";
 import { UpdateCard } from "../../../components/updateCard.tsx"
 
 interface Task {
-    _id: string;
+    _id?: string;
     title: string;
     description: string;
 }
 
 function DisplayTodos() {
-    const [updateCard, setUpdateCard] = useState<boolean>(false)
-
+    // const [updateCard, setUpdateCard] = useState<boolean>(false)
+    const [editTask, setEditTask] = useState<boolean>(false);
+    const [editTaskData, setEditTaskData] = useState<Task>({
+        title: "",
+        description: "",
+    })
 
     const useFetchTodos = async () => {
         const response = await axios.get("https://taskly-55pj.onrender.com/api/todo/getTodo", {
@@ -40,7 +43,9 @@ function DisplayTodos() {
         deletetodo(id); // passing this to mutation function of useDeleteTodo
     }
     function handleEditTodos(title: string, description: string) {
+        setEditTask(true)
         const data = { title, description }
+        setEditTaskData(data)
         console.log("Edit todo successful", data)
     }
 
@@ -75,7 +80,9 @@ function DisplayTodos() {
                     </li>
                 ))}
             </ul>
-            {updateCard && <UpdateCard setUpdateCard={setUpdateCard} />}
+            {/* {updateCard && <UpdateCard setUpdateCard={setUpdateCard} />} */}
+            {editTask && <UpdateCard setEditTask={setEditTask} editTaskData={editTaskData} />}
+
         </div>
     );
 }
