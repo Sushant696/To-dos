@@ -3,7 +3,6 @@ import TaskCard from "@/components/taskCard";
 import { Add } from "iconsax-react";
 import { useState } from "react";
 import DisplayTodos from "./Todos";
-// import SideBar from "@/components/sidebar";
 
 
 function SecuredHome() {
@@ -34,4 +33,4 @@ function SecuredHome() {
 }
 
 export default SecuredHome
- 
+
