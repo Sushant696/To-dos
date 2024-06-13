@@ -9,7 +9,7 @@ type updateTodoType = {
 
 async function updateTodo(data: updateTodoType) {
   const response = await axios.patch(
-    "https://taskly-55pj.onrender.com/api/editTodo",
+    "https://taskly-55pj.onrender.com/api/todo/editTodo",
     data,
     {
       withCredentials: true,
