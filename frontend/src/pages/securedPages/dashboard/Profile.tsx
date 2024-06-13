@@ -1,9 +1,10 @@
 
 function UserProfile() {
+  console.log("User profile is this and here")
   return (
     <div>
       <img src="" className="border border-black" alt="" />
-      <h1>user name</h1>
+      <h1>Welcome user to your minimal profile</h1>
     </div>
   )
 }

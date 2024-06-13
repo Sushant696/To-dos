@@ -2,6 +2,7 @@ import { useQueryClient, useMutation } from "@tanstack/react-query";
 import axios from "axios";
 
 type updateTodoType = {
+  id:string,
   title: string;
   description: string;
 };

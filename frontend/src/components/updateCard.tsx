@@ -4,73 +4,100 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useForm } from "react-hook-form";
 import { useUpdateTodo } from "@/hooks/useUpdateTodos";
+import { CloseSquare } from "iconsax-react";
 
 interface Task {
-    _id?: string;
-    title: string;
-    description: string;
+  id?: string;
+  title: string;
+  description: string;
 }
 
 type UpdateCardPropsType = {
-    setEditTask: (value: boolean) => void;
-    editTaskData: Task;
+  setEditTask: (value: boolean) => void;
+  editTaskData: Task;
 };
 
 type FormData = {
-    title: string;
-    description: string;
+  title: string;
+  id: string;
+  description: string;
 };
 
 export function UpdateCard({ setEditTask, editTaskData }: UpdateCardPropsType) {
-    const { mutate: updateTodo, isPending } = useUpdateTodo();
-    const { title, description } = editTaskData;
+  const { mutate: updateTodo, isPending } = useUpdateTodo();
+  const { id, title, description } = editTaskData;
+  console.log(id, title, description);
 
-    const { register, handleSubmit, reset } = useForm<FormData>({
-        defaultValues: {
-            title,
-            description
-        }
+  const { register, handleSubmit, reset } = useForm<FormData>({
+    defaultValues: {
+      title,
+      description,
+      id,
+    },
+  });
+
+  function handleCloseMenu() {
+    setEditTask(false);
+  }
+
+  const onSubmit = (data: FormData) => {
+    console.log(data, "data from updateCard to be updated should contain id");
+    updateTodo(data, {
+      onSuccess: () => {
+        console.log("Task updated");
+        reset();
+        handleCloseMenu();
+      },
     });
+  };
 
-    function handleCloseMenu() {
-        setEditTask(false);
-    }
+  return (
+    <div
+      className="fixed top-0 right-0 w-[500px] h-full bg-[#F0F7FF] border transition  bg-opacity-50 z-50 p-6"
+      data-aos="fade-left"
+      data-aos-duration="200"
+      
+      // data-aos="fade-right"
+      // data-aos-duration="3000"
+    >
+      <div className="text-left">
+        <button onClick={handleCloseMenu} className="">
+          <CloseSquare size="36" color="#4285F4" variant="Bulk" />
+        </button>
+      </div>
 
-    const onSubmit = (data: FormData) => {
-        updateTodo(data, {
-            onSuccess: () => {
-                reset();
-                handleCloseMenu();
-            }
-        });
-    };
+      <Card className=" mt-4  bg-opacity-10">
+        <CardContent className="p-4">
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="grid grid-cols-1 gap-4">
+              <Input
+                {...register("title", { required: true })}
+                id="title"
+                className="placeholder:text-slate-400 placeholder:font-semibold medium-text border-b-2 rounded-none"
+                placeholder="Task name"
+              />
+              <Input {...register("id")} id="title" type="hidden" />
+              <Textarea
+                {...register("description", { required: true })}
+                id="description"
+                className=""
+                placeholder="Task description"
+              />
+            </div>
+            <CardFooter className="flex justify-end mt-6">
+              <Button 
+              type="submit" 
+              // color="#4285F4" 
+              className="bg-[#4285F4] mt-2 text-white hover:bg-white hover:text-[#4285F4] border-[#4385f4] hover:border-[#4285F4]"
 
-    return (
-        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
-            <Card className="w-[600px]">
-                <CardContent className="p-4">
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <div className="grid grid-cols-1 gap-4">
-                            <Input
-                                {...register("title", { required: true })}
-                                id="title"
-                                className="placeholder:text-slate-400 placeholder:font-semibold medium-text border-b-2 rounded-none"
-                                placeholder="Task name"
-                            />
-                            <Textarea
-                                {...register("description", { required: true })}
-                                id="description"
-                                className=""
-                                placeholder="Task description"
-                            />
-                        </div>
-                        <CardFooter className="flex justify-end mt-6">
-                            <Button onClick={handleCloseMenu} variant="outline">Cancel</Button>
-                            <Button type="submit" disabled={isPending}>{isPending ? "Editing" : "Edit"}</Button>
-                        </CardFooter>
-                    </form>
-                </CardContent>
-            </Card>
-        </div>
-    );
+              // className="bg-[#4285F4]" 
+              disabled={isPending}>
+                {isPending ? "Editing" : "Edit"}
+              </Button>
+            </CardFooter>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
+  );
 }
