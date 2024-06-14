@@ -7,10 +7,12 @@ import Features from "../features";
 import Pricing from "../pricing";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import TodoHome from "../securedPages/home";
-import UserProfile from "../securedPages/dashboard/Profile";
+// import UserProfile from "../securedPages/dashboard/Profile";
+
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import ProfileForm from "../securedPages/dashboard/ProfileForm";
 
 function Routing() {
   useEffect(() => {
@@ -33,7 +35,7 @@ function Routing() {
         {/* Protected Routes */}
         <Route element={<ProtectedRoute />}>
           <Route path="/home" element={<TodoHome />}></Route>
-          <Route path="/profile" element={<UserProfile />} />
+          <Route path="/profile" element={<ProfileForm />} />
         </Route>
       </Routes>
     </>

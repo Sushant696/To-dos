@@ -1,12 +1,16 @@
+// import ProfileForm from "./ProfileForm";
 
 function UserProfile() {
-  console.log("User profile is this and here")
+
+  console.log("User profile is this and here");
+
   return (
-    <div>
-      <img src="" className="border border-black" alt="" />
-      <h1>Welcome user to your minimal profile</h1>
+    <div className="container  mt-6">
+      <img src="" className="" alt="" />
+      {/* <h1>Welcome user to your minimal profile</h1> */}
+      {/* <ProfileForm /> */}
     </div>
-  )
+  );
 }
 
-export default UserProfile
+export default UserProfile;

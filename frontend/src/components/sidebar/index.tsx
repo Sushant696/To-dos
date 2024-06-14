@@ -14,13 +14,18 @@ import {
 import Logout from "@/pages/auth/Logout";
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
+import { Progress } from "antd";
 
 function SideMenu() {
   const [collapsed, setCollapsed] = useState(false);
   const [completeProfile, setCompleteProfile] = useState(false);
   const toggleProfileComplete = false;
-  if(toggleProfileComplete){setCompleteProfile(true)}
+  if (toggleProfileComplete) {
+    setCompleteProfile(true);
+  }
 
+  
+  
   // fetch the user profile data here and set the state to true if the profile is complete
 
   return (
@@ -58,7 +63,17 @@ function SideMenu() {
                 )}
               </div>
               {!completeProfile && !collapsed && (
-                <Button>Complete your profile</Button>
+                <div className="mt-3">
+                  <p>Profile complete status</p>
+                  <Progress
+                    percent={30}
+                    className="mb-2"
+                    size="small"
+                    status="active"
+                  />
+
+                  <Button>Complete Profile Now</Button>
+                </div>
               )}
             </Link>
           </div>
