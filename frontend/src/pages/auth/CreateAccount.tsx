@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import AuthO from "./loginWith";
-// import LoginForm from "./LoginForm";
+import { useRegisterUser } from "@/hooks/useRegisterUser";
 
 type FormData = {
   username: string;
@@ -11,11 +11,8 @@ type FormData = {
 };
 
 function CreateAccount() {
-  const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
-  const [messageColor, setMessageColor] = useState<string>("red")
-
-
+  const [messageColor, setMessageColor] = useState<string>("red");
 
   const form = useForm<FormData>({
     defaultValues: {
@@ -29,42 +26,38 @@ function CreateAccount() {
   const { register, handleSubmit, formState } = form;
   const { errors } = formState;
 
-  async function onSubmit(data: FormData) {
-    setLoading(true)
-    try {
-      const response = await fetch("https://taskly-55pj.onrender.com/api/user/register", {
-        method: "post",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(data)
-      })
+  const { mutate: registerUser, isPending } = useRegisterUser();
 
-      const res = await response.json();
-      setMessage(res.message)
-
-      if (response.status >= 200 && response.status < 300) {
+  const onSubmit = (data: FormData) => {
+    registerUser(data, {
+      onSuccess: (res) => {
+        setMessage(res.message);
         setMessageColor("green");
-      } else {
-        setMessageColor("red")
-      }
-      // Reset the form fields
-      form.reset();
-    }
-    catch (error) {
-      console.error("User not registered!")
-    }
-    finally {
-      setLoading(false) // After the form submission is complete
-    }
-  }
+        form.reset();
+      },
+      onError: () => {
+        setMessage("Failed to register user");
+        setMessageColor("red");
+      },
+    });
+  };
 
   return (
     <div className="container flex justify-center items-center">
       <div className="w-full flex flex-col justify-center items-center">
         <AuthO />
         <div className="w-4/5">
-          {message && <h1 style={{ color: messageColor }} className={`subtitle-text text-center`}>{message}</h1>}
-          {loading ? <h1>Please wait while submitting the form</h1> :
-
+          {message && (
+            <h1
+              style={{ color: messageColor }}
+              className={`subtitle-text text-center`}
+            >
+              {message}
+            </h1>
+          )}
+          {isPending ? (
+            <h1>Please wait while submitting the form</h1>
+          ) : (
             <div className="container p-12">
               <form
                 onSubmit={handleSubmit(onSubmit)}
@@ -95,7 +88,7 @@ function CreateAccount() {
                     {errors.username?.message}
                   </p>
                 </div>
-                {/* Password field */}
+                {/* Email field */}
                 <div className="mb-6">
                   <label
                     className="block text-gray-700 text-lg font-bold mb-2"
@@ -123,6 +116,7 @@ function CreateAccount() {
                     {errors.email?.message}
                   </p>
                 </div>
+                {/* Password field */}
                 <div className="mb-6">
                   <label
                     className="block text-gray-700 text-lg font-bold mb-2"
@@ -146,6 +140,7 @@ function CreateAccount() {
                     {errors.password?.message}
                   </p>
                 </div>
+                {/* Re-Type Password field */}
                 <div className="mb-6">
                   <label
                     className="block text-gray-700 text-lg font-bold mb-2"
@@ -179,7 +174,8 @@ function CreateAccount() {
                   </button>
                 </div>
               </form>
-            </div>}
+            </div>
+          )}
         </div>
       </div>
     </div>

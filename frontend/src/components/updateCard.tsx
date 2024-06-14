@@ -26,7 +26,6 @@ type FormData = {
 export function UpdateCard({ setEditTask, editTaskData }: UpdateCardPropsType) {
   const { mutate: updateTodo, isPending } = useUpdateTodo();
   const { id, title, description } = editTaskData;
-  console.log(id, title, description);
 
   const { register, handleSubmit, reset } = useForm<FormData>({
     defaultValues: {
@@ -41,10 +40,8 @@ export function UpdateCard({ setEditTask, editTaskData }: UpdateCardPropsType) {
   }
 
   const onSubmit = (data: FormData) => {
-    console.log(data, "data from updateCard to be updated should contain id");
     updateTodo(data, {
       onSuccess: () => {
-        console.log("Task updated");
         reset();
         handleCloseMenu();
       },

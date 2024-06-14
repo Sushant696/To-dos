@@ -10,7 +10,7 @@ import {
   getUserDetails,
   postUserDetails,
 } from "../controllers/user.controller.js";
-import { upload } from "../middleWares/multer.middlewares.js";
+import upload from "../middleWares/multer.middlewares.js";
 
 const userRouter = Router();
 userRouter.route("/register").post(registerUser);

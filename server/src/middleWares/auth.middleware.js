@@ -31,7 +31,7 @@ export const verifyJWT = asyncHandler(async (req, res, next) => {
         .status(200)
         .json(
           new ApiResponse(
-            200,
+            403,
             { isAuthenticated: false },
             "Invalid Access token"
           )

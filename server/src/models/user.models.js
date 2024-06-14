@@ -13,7 +13,6 @@ const userSchema = new mongoose.Schema(
     },
     fullName: {
       type: String,
-      required: true,
     },
     email: {
       type: String,
@@ -28,10 +27,6 @@ const userSchema = new mongoose.Schema(
     },
     education: {
       type: String,
-      // required: true,
-    },
-    skill: {
-      type: [],
       // required: true,
     },
     refreshToken: {
@@ -65,27 +60,7 @@ userSchema.methods.isPasswordCorrect = async function (password) {
   return await bcrypt.compare(password, this.password); // return bool
 };
 
-// these methods will be avaliable in the user document in all instance of the user model
-// userSchema.methods.generateAccessToken = function () {
-//   return jwt.sign({
-//     _id: this._id,
-//     email: this.email, // email is payload/(data) name  and this.email is comming from database so we are referencing with this
-//     username: this.username
-//   },
-//     process.env.ACCESS_TOKEN_SECRET, {
-//     expiresIn: process.env.ACCESS_TOKEN_EXPIRY
-//   })
-// }
-// userSchema.methods.generateRefreshToken = function () {
-//   return jwt.sign(
-//     {
-//       _id: this._id,
 
-//     }, process.env.REFRESH_TOKEN_SECRET, {
-//     expiresIn: process.env.REFRESH_TOKEN_EXPIRY
-//   }
-//   )
-// }
 
 export const User = mongoose.model("user", userSchema);
 

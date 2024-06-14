@@ -42,7 +42,7 @@ const registerUser = asyncHandler(async (req, res) => {
     // throw new Apierror(409, "User with this username and email already exist.")
   }
 
-  const createdUser = await User.create({
+  await User.create({
     username,
     password,
     email,
@@ -195,20 +195,36 @@ const verifyAccessToken = asyncHandler(async (req, res) => {
 });
 
 const postUserDetails = asyncHandler(async (req, res) => {
-    const data = req.body;
-    console.log(data, "data from postUserDetails");
-    return res.status(200).json(new ApiResponse(200, data, "User details received"));
-  });
-  
-  const getUserDetails = asyncHandler(async (req, res) => {
-    const user = await User.findById(req.user._id);
-    if (!user) {
-      return res.status(404).json(new ApiResponse(404, {}, "Unable to get user details"));
-    }
-    console.log(user, "data from getUserDetails");
-    return res.status(200).json(new ApiResponse(200, user, "User details retrieved successfully"));
-  });
-  
+  const userId = req.user._id; // Assuming you are using authentication middleware to attach user to req
+  const data = req.body;
+  console.log(data);
+  const updatedUser = await User.findByIdAndUpdate(userId, data, {
+    new: true,
+    runValidators: true,
+  }).select("-password -refreshToken");
+
+  if (!updatedUser) {
+    return res
+      .status(404)
+      .json(new ApiResponse(404, {}, "Unable to update user details"));
+  }
+
+  console.log(updatedUser);
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, {}, "User details updated successfully"));
+});
+
+const getUserDetails = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id).select("-refreshToken -password");
+
+  if (!user) {
+    return res.status(404).json(new ApiResponse(404, {}, "Unable to get user details"));
+  }
+
+  return res.status(200).json(new ApiResponse(200, user, "User details retrieved"));
+});
 
 export {
   registerUser,
@@ -217,5 +233,5 @@ export {
   refreshAccessToken,
   verifyAccessToken,
   postUserDetails,
-  getUserDetails
+  getUserDetails,
 };

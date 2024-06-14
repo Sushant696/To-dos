@@ -1,16 +1,24 @@
 import multer from "multer";
-// multer as middleware
+import fs from 'fs';
+import path from 'path';
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, './public/temp')
-    },
-    filename: function (req, file, cb) {
-        const uniqueSufix = Date.now() + "_" + Math.round(Math.random() * 1E9)
-        cb(null, file.filename + "_" + uniqueSufix) // temp name which will be saved in public/temp folder generating unique name for that time 
-    }
-})
+// Ensure the directory exists
+const uploadDir = './public/images';
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
 
-export const upload = multer({
-     storage: storage
-     }) // 
+const fileStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, uploadDir);
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({ storage: fileStorage }).fields([
+  { name: "avatar", maxCount: 1 },
+]);
+
+export default upload;
