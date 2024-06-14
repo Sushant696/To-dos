@@ -61,7 +61,7 @@ const deleteTodos = asyncHandler(async (req, res) => {
 
 const editTodos = asyncHandler(async (req, res) => {
   const { id, title, description } = req.body;
-  console.log(id,tittle,description);
+  console.log(id, title,description);
     if (!id || !title || !description) {
         return res
         .status(400)
