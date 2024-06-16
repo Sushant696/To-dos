@@ -3,18 +3,18 @@ import { useState } from "react";
 import {
   Calendar,
   DirectInbox,
-  Home2,
-  SearchNormal,
   ArrowRight2,
   LogoutCurve,
   Setting2,
   User,
   ArrowLeft2,
+  NoteSquare,
 } from "iconsax-react";
 import Logout from "@/pages/auth/Logout";
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 import { Progress } from "antd";
+import { ListTodo } from "lucide-react";
 
 function SideMenu() {
   const [collapsed, setCollapsed] = useState(false);
@@ -85,37 +85,49 @@ function SideMenu() {
 
         <div className="mt-12">
           <Menu data-aos="fade-right">
-            <MenuItem
-              icon={<DirectInbox color="#4285F4" variant="Bulk" size={48} />}
-            >
-              {" "}
-              Inbox
-            </MenuItem>
-            <MenuItem
-              icon={<Calendar color="#4285F4" variant="Bulk" size={48} />}
-            >
-              Today
-            </MenuItem>
-            <MenuItem
-              icon={<SearchNormal color="#4285F4" variant="Bulk" size={48} />}
-            >
-              {" "}
-              Search
-            </MenuItem>
-            <MenuItem icon={<Home2 color="#4285F4" variant="Bulk" size={48} />}>
-              {" "}
-              Upcoming
-            </MenuItem>
+            <Link to={"/home"}>
+              <MenuItem
+                icon={<ListTodo color="#4285F4"  size={48} />}
+              >
+                {" "}
+                Todos
+              </MenuItem>
+            </Link>
+            <Link to={"/inbox"}>
+              <MenuItem
+                icon={<DirectInbox color="#4285F4" variant="Bulk" size={48} />}
+              >
+                {" "}
+                Inbox
+              </MenuItem>
+            </Link>
+            <Link to={"/calender"}>
+              <MenuItem
+                icon={<Calendar color="#4285F4" variant="Bulk" size={48} />}
+              >
+                Calender
+              </MenuItem>
+            </Link>
+            <Link to={"/notes"}>
+              <MenuItem
+                icon={<NoteSquare color="#4285F4" variant="Bulk" size={48} />}
+              >
+                {" "}
+                Notes
+              </MenuItem>
+            </Link>
           </Menu>
         </div>
         <div className="bottom-menu">
           <Menu data-aos="fade-right">
-            <MenuItem
-              icon={<Setting2 size="48" color="#4285F4" variant="Bulk" />}
-            >
-              {" "}
-              <h1 data-aos="fade-right">Settings </h1>
-            </MenuItem>
+            <Link to={"/setting"}>
+              <MenuItem
+                icon={<Setting2 size="48" color="#4285F4" variant="Bulk" />}
+              >
+                {" "}
+                <h1 data-aos="fade-right">Settings </h1>
+              </MenuItem>
+            </Link>
             <MenuItem
               icon={<LogoutCurve size="48" color="#4285F4" variant="Bulk" />}
             >

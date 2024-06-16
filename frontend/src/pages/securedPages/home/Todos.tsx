@@ -85,8 +85,6 @@ function DisplayTodos() {
           </li>
         ))}
       </ul>
-      {/* {updateCard && <UpdateCard setUpdateCard={setUpdateCard} />} */}
-
       {editTask && (
         <div className="">
           <UpdateCard setEditTask={setEditTask} editTaskData={editTaskData} />

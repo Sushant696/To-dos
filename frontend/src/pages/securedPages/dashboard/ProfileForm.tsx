@@ -23,6 +23,7 @@ const ProfileForm = () => {
   const { register, handleSubmit } = useForm<ProfileFormInputs>();
 
   const onSubmit: SubmitHandler<ProfileFormInputs> = (formdata) => {
+    console.log(formdata, "formdata ");
     const formData = new FormData();
     formData.append("fullName", formdata.fullName);
     formData.append("nickName", formdata.nickName);
@@ -32,21 +33,6 @@ const ProfileForm = () => {
 
     mutation.mutate(formdata);
   };
-
-  // const handleProfileComplete = async () => {
-  //   const response = await fetch(
-  //     "http://localhost:5500/api/user/profilecomplete",
-  //     {
-  //       method: "GET",
-  //       credentials: "include",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     }
-  //   );
-
-  //   return response.json();
-  // };
 
   function handleShowForm() {
     setShowProfileForm(true);

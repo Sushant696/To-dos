@@ -1,13 +1,11 @@
-import SideMenu from "@/components/sidebar"
-import SecuredHome from "./Home"
+import SecuredHome from "./Home";
 
 function TodoHome() {
-    return (
-        <div className="flex">
-            <SideMenu />
-            <SecuredHome />
-        </div>
-    )
+  return (
+    <div className="flex">
+      <SecuredHome />
+    </div>
+  );
 }
 
-export default TodoHome
+export default TodoHome;

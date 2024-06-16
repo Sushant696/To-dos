@@ -19,7 +19,7 @@ const postUserDetails = async (formData: ProfileFormInputs) => {
   const response = await fetch(
     "https://taskly-55pj.onrender.com/api/user/postUserDetails",
     {
-      method: "POST",
+      method: "patch",
       credentials: "include",
       body: formDataObj,
       headers: {
