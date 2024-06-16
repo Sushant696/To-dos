@@ -28,13 +28,13 @@ function SecuredHome() {
   function handleTaskAdd() {
     setTaskEditor(true);
   }
-
+  console.log(date.getDate());
   return (
     <div className="container_todo mt-8">
       <h1 className="subtitle-text font-semibold">Today</h1>
       <h1>
         {" "}
-        {getMonth()} {date.getDay()}
+        {getMonth()} {date.getDate()}
       </h1>
       <div className="my-4">
         <button
@@ -47,7 +47,6 @@ function SecuredHome() {
       </div>
       {taskEditor && <TaskCard setTaskEditor={setTaskEditor} />}
       <DisplayTodos />
-   
     </div>
   );
 }

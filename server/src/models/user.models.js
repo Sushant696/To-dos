@@ -44,6 +44,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       // default: "user"
     },
+    ProfileComplete: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );
@@ -59,8 +63,6 @@ userSchema.pre("save", async function (next) {
 userSchema.methods.isPasswordCorrect = async function (password) {
   return await bcrypt.compare(password, this.password); // return bool
 };
-
-
 
 export const User = mongoose.model("user", userSchema);
 

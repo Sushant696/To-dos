@@ -22,5 +22,6 @@ userRouter.route("/refresh-token").post(refreshAccessToken);
 userRouter.route("/verifyUser").get(verifyJWT, verifyAccessToken);
 userRouter.route("/postUserDetails").post(verifyJWT, postUserDetails);
 userRouter.route("/getUserDetails").get(verifyJWT, getUserDetails);
+// userRouter.route("/profilecomplete").get(verifyJWT, getProfileComplete);
 
 export default userRouter;

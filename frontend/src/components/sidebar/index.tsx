@@ -24,8 +24,6 @@ function SideMenu() {
     setCompleteProfile(true);
   }
 
-  
-  
   // fetch the user profile data here and set the state to true if the profile is complete
 
   return (
@@ -33,7 +31,7 @@ function SideMenu() {
       <Sidebar
         collapsed={collapsed}
         collapsedWidth="85px"
-        transitionDuration={collapsed ? 600 : 300}
+        transitionDuration={collapsed ? 600 : 600}
         rootStyles={{ height: "100vh" }}
       >
         <div className="mt-8 flex flex-col items-center justify-start ">
@@ -48,10 +46,11 @@ function SideMenu() {
                 />
                 {!collapsed && (
                   <div
-                    className="ease-in-out"
+                    // className="ease-in-out"
                     // data-aos="fade-zoom"
-                    data-aos="zoom-in"
-                    data-aos-duration="10"
+                    // data-aos="zoom-in"
+                    data-aos="fade-right"
+                    // data-aos-duration="10"
                   >
                     <h1 className="text-xl font-semibold" data-aos="fade-right">
                       Admin
@@ -63,8 +62,13 @@ function SideMenu() {
                 )}
               </div>
               {!completeProfile && !collapsed && (
-                <div className="mt-3">
-                  <p>Profile complete status</p>
+                <div
+                  className="mt-3"
+                  //  data-aos="zoom-in"
+                  // data-aos-duration="10"
+                  data-aos="fade-right"
+                >
+                  <p>Profile completion status</p>
                   <Progress
                     percent={30}
                     className="mb-2"
@@ -80,7 +84,7 @@ function SideMenu() {
         </div>
 
         <div className="mt-12">
-          <Menu>
+          <Menu data-aos="fade-right">
             <MenuItem
               icon={<DirectInbox color="#4285F4" variant="Bulk" size={48} />}
             >
@@ -105,12 +109,12 @@ function SideMenu() {
           </Menu>
         </div>
         <div className="bottom-menu">
-          <Menu>
+          <Menu data-aos="fade-right">
             <MenuItem
               icon={<Setting2 size="48" color="#4285F4" variant="Bulk" />}
             >
               {" "}
-              Settings{" "}
+              <h1 data-aos="fade-right">Settings </h1>
             </MenuItem>
             <MenuItem
               icon={<LogoutCurve size="48" color="#4285F4" variant="Bulk" />}

@@ -201,7 +201,7 @@ const postUserDetails = asyncHandler(async (req, res) => {
   const updatedUser = await User.findByIdAndUpdate(userId, data, {
     new: true,
     runValidators: true,
-  }).select("-password -refreshToken");
+  });
 
   if (!updatedUser) {
     return res
@@ -209,22 +209,45 @@ const postUserDetails = asyncHandler(async (req, res) => {
       .json(new ApiResponse(404, {}, "Unable to update user details"));
   }
 
-  console.log(updatedUser);
-
   return res
     .status(200)
     .json(new ApiResponse(200, {}, "User details updated successfully"));
 });
 
 const getUserDetails = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user._id).select("-refreshToken -password");
+  const user = await User.findById(req.user._id).select(
+    "-refreshToken -password"
+  );
 
   if (!user) {
-    return res.status(404).json(new ApiResponse(404, {}, "Unable to get user details"));
+    return res
+      .status(404)
+      .json(new ApiResponse(404, {}, "Unable to get user details"));
   }
 
-  return res.status(200).json(new ApiResponse(200, user, "User details retrieved"));
+  console.log(user, "user");
+  return res
+    .status(200)
+    .json(new ApiResponse(200, user, "User details retrieved"));
 });
+
+// const getProfileComplete = asyncHandler(async (req, res) => {
+//   const userId = req.user._id; // Assuming you are using authentication middleware to attach user to req
+//   const data = req.body;
+//   if (!userId) {
+//     return new ApiResponse(404, {}, "User not found");
+//   }
+//   const profileComplete = await User.find(profileComplete);
+//   console.log(profileComplete, "complete profile");
+//   if (!profileComplete) {
+//     return new ApiResponse(404, {}, "User not found");
+//   }
+//   return res
+//     .status(200)
+//     .json(
+//       new ApiResponse(200, { profileComplete }, "user profile is complete!")
+//     );
+// });
 
 export {
   registerUser,
@@ -234,4 +257,5 @@ export {
   verifyAccessToken,
   postUserDetails,
   getUserDetails,
+  // getProfileComplete,
 };
