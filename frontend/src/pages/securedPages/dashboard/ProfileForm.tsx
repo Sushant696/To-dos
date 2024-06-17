@@ -18,22 +18,24 @@ const ProfileForm = () => {
   const [showProfileForm, setShowProfileForm] = useState(false);
 
   const { mutation, data, isPending } = usePostUserDetails();
-  // console.log(data.data, "incomming data  ");
 
-  const { register, handleSubmit } = useForm<ProfileFormInputs>();
+  const { register, handleSubmit, reset } = useForm<ProfileFormInputs>();
 
   const onSubmit: SubmitHandler<ProfileFormInputs> = (formdata) => {
-    console.log(formdata, "formdata ");
     const formData = new FormData();
     formData.append("fullName", formdata.fullName);
     formData.append("nickName", formdata.nickName);
     formData.append("avatar", formdata.avatar[0]);
     formData.append("role", formdata.role);
-    console.log(formdata);
 
-    mutation.mutate(formdata);
+    mutation.mutate(formData, {
+      onSuccess: () => {
+        reset();
+        setShowProfileForm(false);
+      },
+    });
   };
-
+ 
   function handleShowForm() {
     setShowProfileForm(true);
   }
@@ -42,41 +44,37 @@ const ProfileForm = () => {
   }
 
   if (isPending) {
-    return <div>loading </div>;
-  }
-
-  if (mutation.isError) {
-    return <div>error</div>;
+    return <div>Loading...</div>;
   }
 
   if (data.data.ProfileComplete) {
     setProfileComplete(true);
+
   }
 
   return (
-    <div className="container p-10 border max-w-xl   bg-white rounded-lg shadow-md p mt-10">
+    <div className="container p-10 border max-w-xl bg-white rounded-lg shadow-md mt-10">
       {data && (
         <div className="flex items-center gap-4 text-blue-800 m-4">
           <div className="border rounded-full">
             <User size={90} className="p-3" color="#2243B0" variant="Bulk" />
           </div>
           <div>
-            <h1>{data.data.username}</h1>
-            <h1>{data.data.email}</h1>
-            <h1>{data.data.nickName}</h1>
-            <h1>{data.data.role}</h1>
-            <h1>{data.data.fullName}</h1>
+            <h1> UserName:{data.data.username}</h1>
+            <h1>Email:{data.data.email}</h1>
+            <h1> Nickname: {data.data.nickName}</h1>
+            <h1> Role: {data.data.role}</h1>
+            <h1>FullName:{data.data.fullName}</h1>
           </div>
         </div>
       )}
 
-      {/* <h2 className="text-2xl font-bold my-6 text-center">Profile Form</h2> */}
       {!profileComplete && (
         <div className="m-8 text-right">
           {!showProfileForm ? (
             <Button onClick={handleShowForm}>Update Profile</Button>
           ) : (
-            <Button onClick={handleHideForm}>cancel</Button>
+            <Button onClick={handleHideForm}>Cancel</Button>
           )}
         </div>
       )}
@@ -87,6 +85,7 @@ const ProfileForm = () => {
               Full Name
             </Label>
             <Input
+              defaultValue={data.data.fullName}
               id="fullName"
               {...register("fullName")}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
@@ -98,6 +97,7 @@ const ProfileForm = () => {
             </Label>
             <Input
               id="nickName"
+              defaultValue={data.data.nickName}
               {...register("nickName")}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
             />
@@ -118,6 +118,7 @@ const ProfileForm = () => {
               Role
             </Label>
             <Input
+              defaultValue={data.data.role}
               id="role"
               {...register("role")}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"

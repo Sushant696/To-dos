@@ -8,17 +8,16 @@ type FormDataType = {
 
 async function postUserDetails(formData: FormDataType) {
   const response = await fetch(
-    "https://taskly-55pj.onrender.com/api/user/login"
-    // "https://taskly-55pj.onrender.com/api/user/login"
-    
-    , {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-    },
-    body: JSON.stringify(formData),
-    credentials: "include",
-  });
+    "https://taskly-55pj.onrender.com/api/user/login",
+    {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(formData),
+      credentials: "include",
+    }
+  );
   return response.json();
 }
 
@@ -27,7 +26,6 @@ export function useLoginUser() {
   return useMutation({
     mutationFn: postUserDetails,
     onSuccess: () => {
-      
       queryClient.invalidateQueries({ queryKey: ["user"] });
     },
   });

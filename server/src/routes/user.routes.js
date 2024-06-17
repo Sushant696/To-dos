@@ -8,7 +8,7 @@ import {
   registerUser,
   verifyAccessToken,
   getUserDetails,
-  postUserDetails,
+  updateUserProfile,
 } from "../controllers/user.controller.js";
 import upload from "../middleWares/multer.middlewares.js";
 
@@ -20,7 +20,7 @@ userRouter.route("/login").post(loginUser);
 userRouter.route("/logout").post(verifyJWT, logoutUser);
 userRouter.route("/refresh-token").post(refreshAccessToken);
 userRouter.route("/verifyUser").get(verifyJWT, verifyAccessToken);
-userRouter.route("/postUserDetails").post(verifyJWT, postUserDetails);
+userRouter.route("/updateUserProfile").patch(verifyJWT, upload, updateUserProfile);
 userRouter.route("/getUserDetails").get(verifyJWT, getUserDetails);
 // userRouter.route("/profilecomplete").get(verifyJWT, getProfileComplete);
 

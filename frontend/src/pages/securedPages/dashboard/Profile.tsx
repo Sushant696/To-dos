@@ -1,7 +1,6 @@
 // import ProfileForm from "./ProfileForm";
 
 function UserProfile() {
-
   console.log("User profile is this and here");
 
   return (

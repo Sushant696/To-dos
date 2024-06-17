@@ -1,26 +1,31 @@
 import express from "express";
 import cookieParser from "cookie-parser";
-import cors from "cors";
+// import cors from "cors";
 const app = express();
 
-const allowedOrigins = [
-  "https://to-dos-khaki.vercel.app",
-  "http://localhost:5173",
-];
+// CORS middleware
+const cors = (req, res, next) => {
+  const origin = "https://to-dos-khaki.vercel.app";
+  res.setHeader("Access-Control-Allow-Origin", origin);
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, PATCH, OPTIONS"
+  );
+  res.setHeader("Access-Control-Allow-Credentials", "true");
 
-const corsOptions = {
-  credentials: true,
-  methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
-  origin: function (origin, callback) {
-    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
+  // Handle preflight requests
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+
+  next();
 };
 
-app.use(cors(corsOptions));
+app.use(cors);
 app.use(express.json({ limit: "16kb" })); // limiting the incomming json
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(express.static("public")); // public is folder name

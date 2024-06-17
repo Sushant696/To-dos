@@ -9,6 +9,8 @@ import {
 import { Apierror } from "../utils/ApiErrorHandling.js";
 import jwt from "jsonwebtoken";
 
+import { uploadOnCoudinary } from "../utils/couldinary.js";
+
 const registerUser = asyncHandler(async (req, res) => {
   const { username, password, email } = req.body;
 
@@ -22,7 +24,6 @@ const registerUser = asyncHandler(async (req, res) => {
           "Username and password are required"
         )
       );
-    // throw new Apierror(404, "Username and password are required")
   }
 
   const existingUser = await User.findOne({
@@ -39,7 +40,6 @@ const registerUser = asyncHandler(async (req, res) => {
           "User with this username or email already exist."
         )
       );
-    // throw new Apierror(409, "User with this username and email already exist.")
   }
 
   await User.create({
@@ -65,7 +65,6 @@ const loginUser = asyncHandler(async (req, res) => {
     return res
       .status(500)
       .json(new ApiResponse(500, {}, "Username or password are required"));
-    // throw new Apierror(404, "Username and password are required")
   }
 
   const user = await User.findOne({ username });
@@ -83,7 +82,6 @@ const loginUser = asyncHandler(async (req, res) => {
   const accessToken = generateAccessToken(user._id);
   const refreshToken = generateRefreshToken(user._id);
 
-  // assigning our refreshtoken to the database refresh token
   user.refreshToken = refreshToken;
   await user.save({ validateBeforeSave: false });
 
@@ -108,7 +106,7 @@ const loginUser = asyncHandler(async (req, res) => {
         ""
       )
     );
-  // sending access and refresh token in response as in frontend user can also save those in local storage or something else giving frontend dev developer different options
+  // sending access and refresh token in response as in frontend user can also save those in local storage or something else giving frontend dev developer multitple options
 });
 
 const logoutUser = asyncHandler(async (req, res) => {
@@ -194,14 +192,32 @@ const verifyAccessToken = asyncHandler(async (req, res) => {
     );
 });
 
-const postUserDetails = asyncHandler(async (req, res) => {
+const updateUserProfile = asyncHandler(async (req, res) => {
   const userId = req.user._id; // Assuming you are using authentication middleware to attach user to req
-  const data = req.body;
-  console.log(data);
-  const updatedUser = await User.findByIdAndUpdate(userId, data, {
-    new: true,
-    runValidators: true,
-  });
+  const { fullName, nickName, role } = req.body;
+  const avatarPath = req.files?.avatar?.[0].path;
+
+  if (!avatarPath) {
+    throw new Apierror(403, "Invalid path for user avatar..");
+  }
+
+  const avatarFileRefCloudinary = await uploadOnCoudinary(avatarPath);
+  console.log(avatarFileRefCloudinary);
+
+  const updatedUser = await User.findByIdAndUpdate(
+    userId,
+    {
+      fullName,
+      role,
+      nickName,
+      avatar: avatarFileRefCloudinary.url,
+      ProfileComplete: true,
+    },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
 
   if (!updatedUser) {
     return res
@@ -231,31 +247,13 @@ const getUserDetails = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, user, "User details retrieved"));
 });
 
-// const getProfileComplete = asyncHandler(async (req, res) => {
-//   const userId = req.user._id; // Assuming you are using authentication middleware to attach user to req
-//   const data = req.body;
-//   if (!userId) {
-//     return new ApiResponse(404, {}, "User not found");
-//   }
-//   const profileComplete = await User.find(profileComplete);
-//   console.log(profileComplete, "complete profile");
-//   if (!profileComplete) {
-//     return new ApiResponse(404, {}, "User not found");
-//   }
-//   return res
-//     .status(200)
-//     .json(
-//       new ApiResponse(200, { profileComplete }, "user profile is complete!")
-//     );
-// });
-
 export {
   registerUser,
   loginUser,
   logoutUser,
   refreshAccessToken,
   verifyAccessToken,
-  postUserDetails,
+  updateUserProfile,
   getUserDetails,
   // getProfileComplete,
 };
