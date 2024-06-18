@@ -5,8 +5,8 @@ const app = express();
 
 // CORS middleware
 const cors = (req, res, next) => {
-  const origin = "http://localhost:5173";
-  // const origin = process.env.PRODUCTION;
+  // const origin = "http://localhost:5173";
+  const origin = process.env.PRODUCTION || "https://taskly-55pj.onrender.com/";
 
   console.log(origin);
   res.setHeader("Access-Control-Allow-Origin", origin);
