@@ -1,5 +1,5 @@
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Calendar,
   DirectInbox,
@@ -15,14 +15,22 @@ import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 import { Progress } from "antd";
 import { ListTodo } from "lucide-react";
+import { usePostUserDetails } from "@/hooks/useUserDetails";
 
 function SideMenu() {
+  const { data } = usePostUserDetails();
   const [collapsed, setCollapsed] = useState(false);
-  const [completeProfile, setCompleteProfile] = useState(false);
-  const toggleProfileComplete = false;
-  if (toggleProfileComplete) {
-    setCompleteProfile(true);
-  }
+  const [completeProfile, setCompleteProfile] = useState(
+    data?.data?.ProfileComplete
+  );
+  console.log(data, "data");
+
+  console.log(completeProfile, "current state");
+  useEffect(() => {
+    if (data && data.data.ProfileComplete) {
+      setCompleteProfile(true);
+    }
+  }, [data]);
 
   // fetch the user profile data here and set the state to true if the profile is complete
 
@@ -30,20 +38,34 @@ function SideMenu() {
     <div style={{ display: "flex", alignItems: "center", position: "fixed" }}>
       <Sidebar
         collapsed={collapsed}
-        collapsedWidth="85px"
+        collapsedWidth="88px"
+        width="300px"
         transitionDuration={collapsed ? 600 : 600}
         rootStyles={{ height: "100vh" }}
       >
         <div className="mt-8 flex flex-col items-center justify-start ">
           <div>
             <Link to={"/profile"}>
-              <div className="flex items-center gap-2">
-                <User
-                  color="#4285F4"
-                  variant="Bulk"
-                  size={72}
-                  className="p-2 border rounded-xl m-2"
-                />
+              <div className="flex gap-2">
+                {
+                  completeProfile ? (
+                    <img
+                      className={`${
+                        collapsed ? "w-20 h-20" : "w-24 h-24"
+                      } rounded-xl`}
+                      src={data.data.avatar}
+                      alt={data.data._id}
+                    />
+                  ) : (
+                    <User
+                      color="#4285F4"
+                      variant="Bulk"
+                      size={72}
+                      className="p-2 border rounded-xl m-2"
+                    />
+                  )
+                  //  data.data.username
+                }
                 {!collapsed && (
                   <div
                     // className="ease-in-out"
@@ -52,15 +74,20 @@ function SideMenu() {
                     data-aos="fade-right"
                     // data-aos-duration="10"
                   >
-                    <h1 className="text-xl font-semibold" data-aos="fade-right">
-                      Admin
+                    <h1 className="medium-text capitalize font-semibold" data-aos="fade-right">
+                      {completeProfile
+                        ? data.data.fullName
+                        : //  data.data.username
+                          // "admin"
+                          data?.data?.username}
                     </h1>
-                    <h1 data-aos="fade-right" className="text-sm font-semibold">
-                      Nick name
+                    <h1 data-aos="fade-right" className="text-[16px]">
+                      {completeProfile ? data.data.nickName : "set nickname"}
                     </h1>
                   </div>
                 )}
               </div>
+
               {!completeProfile && !collapsed && (
                 <div
                   className="mt-3"
@@ -79,6 +106,16 @@ function SideMenu() {
                   <Button>Complete Profile Now</Button>
                 </div>
               )}
+              {completeProfile && !collapsed && (
+                <div
+                  className="mt-3"
+                  //  data-aos="zoom-in"
+                  // data-aos-duration="10"
+                  data-aos="fade-right"
+                >
+                  <Button>View Profile</Button>
+                </div>
+              )}
             </Link>
           </div>
         </div>
@@ -86,9 +123,7 @@ function SideMenu() {
         <div className="mt-12">
           <Menu data-aos="fade-right">
             <Link to={"/home"}>
-              <MenuItem
-                icon={<ListTodo color="#4285F4"  size={48} />}
-              >
+              <MenuItem icon={<ListTodo color="#4285F4" size={48} />}>
                 {" "}
                 Todos
               </MenuItem>

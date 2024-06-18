@@ -57,20 +57,28 @@ const ProfileForm = () => {
   return (
     <div className="container p-10 border max-w-xl bg-white rounded-lg shadow-md mt-10">
       {data && (
-        <div className="flex items-center gap-4 text-blue-800 m-4">
+        <div className="flex gap-4 text-blue-800 m-4">
           <div className="border rounded-full">
             {!profileComplete && !data.data.avatar ? (
               <User size={90} className="p-3" color="#2243B0" variant="Bulk" />
             ) : (
-              <img className="w-36 rounded-sm h-36" src={data.data.avatar} alt={data.data._id} />
+              <img
+                className="w-36 rounded-sm h-36"
+                src={data.data.avatar}
+                alt={data.data._id}
+              />
             )}
           </div>
           <div>
-            <h1>FullName: {data.data.fullName}</h1>
-            {/* <h1>UserName: {data.data.username}</h1> */}
-            {/* <h1>Email: {data.data.email}</h1> */}
-            <h1>Nickname: {data.data.nickName}</h1>
-            <h1>Role: {data.data.role}</h1>
+            {!profileComplete ? (
+              <h1 className="capitalize">{data.data.username}</h1>
+            ) : (
+              <div>
+                <h1>{data.data.fullName}</h1>
+                <h1>{data.data.nickName}</h1>
+                <h1>{data.data.role}</h1>
+              </div>
+            )}
           </div>
         </div>
       )}
