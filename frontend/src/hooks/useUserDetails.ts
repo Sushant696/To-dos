@@ -13,7 +13,9 @@ const updateUserProfile = async (data: FormData) => {
   console.log(data);
 
   const response = await axios.patch(
-    "https://taskly-55pj.onrender.com/api/user/updateUserProfile",
+    // "https://taskly-55pj.onrender.com/api/user/updateUserProfile",
+    `${import.meta.env.VITE_BACKEND_URL}/user/updateUserProfile`,
+    
     data,
     { withCredentials: true }
   );
@@ -26,7 +28,9 @@ const updateUserProfile = async (data: FormData) => {
 
 const getUserDetails = async () => {
   const response = await fetch(
-    "https://taskly-55pj.onrender.com/api/user/getUserDetails",
+    // "https://taskly-55pj.onrender.com/api/user/getUserDetails",
+    `${import.meta.env.VITE_BACKEND_URL}/user/getUserDetails`,
+
     {
       method: "GET",
       credentials: "include",

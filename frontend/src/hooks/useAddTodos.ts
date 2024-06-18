@@ -6,8 +6,9 @@ type TodoFormData = {
 };
 
 const AddTodos = async (data: TodoFormData) => {
+  
   const response = await fetch(
-    "https://taskly-55pj.onrender.com/api/todo/addTodo",
+    `${import.meta.env.VITE_BACKEND_URL}/todo/addTodo`,
     {
       method: "POST",
       credentials: "include",

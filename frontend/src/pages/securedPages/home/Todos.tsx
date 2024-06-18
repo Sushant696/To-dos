@@ -22,7 +22,8 @@ function DisplayTodos() {
 
   const useFetchTodos = async () => {
     const response = await axios.get(
-      "https://taskly-55pj.onrender.com/api/todo/getTodo",
+      // "https://taskly-55pj.onrender.com/api/todo/getTodo",
+      `${import.meta.env.VITE_BACKEND_URL}/todo/getTodo`,
       {
         withCredentials: true,
       }
@@ -88,7 +89,7 @@ function DisplayTodos() {
       {editTask && (
         <div className="">
           <UpdateCard setEditTask={setEditTask} editTaskData={editTaskData} />
-         </div>
+        </div>
       )}
     </div>
   );

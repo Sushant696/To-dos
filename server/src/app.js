@@ -5,7 +5,10 @@ const app = express();
 
 // CORS middleware
 const cors = (req, res, next) => {
-  const origin = "https://to-dos-khaki.vercel.app";
+  const origin = "http://localhost:5173";
+  // const origin = process.env.PRODUCTION;
+
+  console.log(origin);
   res.setHeader("Access-Control-Allow-Origin", origin);
   res.setHeader(
     "Access-Control-Allow-Headers",

@@ -8,7 +8,11 @@ type FormData = {
 };
 
 async function registerUserApi(formData: FormData) {
-  const response = await fetch("https://taskly-55pj.onrender.com/api/user/register", {
+  const response = await fetch(
+    // "https://taskly-55pj.onrender.com/api/user/register",
+    `${import.meta.env.VITE_BACKEND_URL}/user/register`,
+    
+    {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

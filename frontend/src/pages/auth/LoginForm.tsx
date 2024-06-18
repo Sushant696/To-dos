@@ -16,6 +16,7 @@ type FormData = {
 };
 
 function Login() {
+
   const [message, setMessage] = useState<string | null>(null);
   const navigate = useNavigate();
 
@@ -132,7 +133,6 @@ function Login() {
                     Sign Up
                   </button>
                 </Link>
-
               </div>
             </form>
             <DevTool control={control} />

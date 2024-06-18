@@ -2,7 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 
 async function userAuthStatus() {
   const response = await fetch(
-    "https://taskly-55pj.onrender.com/api/user/verifyuser",
+    // "https://taskly-55pj.onrender.com/api/user/verifyuser",
+    `${import.meta.env.VITE_BACKEND_URL}/user/verifyuser`,
+    
     {
       method: "GET",
       headers: {
