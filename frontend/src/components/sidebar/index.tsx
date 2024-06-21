@@ -21,11 +21,10 @@ function SideMenu() {
   const { data } = usePostUserDetails();
   const [collapsed, setCollapsed] = useState(false);
   const [completeProfile, setCompleteProfile] = useState(
-    data?.data?.ProfileComplete
+    data?.data?.ProfileComplete ?? false
   );
-  console.log(data, "data");
 
-  console.log(completeProfile, "current state");
+  // console.log(data.data.ProfileComplete, "data from side menu");
   useEffect(() => {
     if (data && data.data.ProfileComplete) {
       setCompleteProfile(true);
@@ -46,7 +45,7 @@ function SideMenu() {
         <div className="mt-8 flex flex-col items-center justify-start ">
           <div>
             <Link to={"/profile"}>
-              <div className="flex gap-2">
+              <div className="flex items-center gap-2">
                 {
                   completeProfile ? (
                     <img
