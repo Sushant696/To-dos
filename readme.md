@@ -63,9 +63,10 @@ Ensure you have the following installed on your system:
 
 ```bash
 cd frontend
-npm installInstall backend dependencies:
+npm install
 ```
 
+Install backend dependencies:
 ```bash
 cd ../backend
 npm install
