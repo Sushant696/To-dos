@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import AuthO from "./loginWith";
 import { useRegisterUser } from "@/hooks/useRegisterUser";
+import { useNavigate } from "react-router-dom";
 
 type FormData = {
   username: string;
@@ -13,6 +14,7 @@ type FormData = {
 function CreateAccount() {
   const [message, setMessage] = useState<string | null>(null);
   const [messageColor, setMessageColor] = useState<string>("red");
+  const navigate = useNavigate();
 
   const form = useForm<FormData>({
     defaultValues: {
@@ -33,6 +35,9 @@ function CreateAccount() {
       onSuccess: (res) => {
         setMessage(res.message);
         setMessageColor("green");
+        setTimeout(() => {
+          navigate("/login");
+        }, 1000);
         form.reset();
       },
       onError: () => {
@@ -62,7 +67,7 @@ function CreateAccount() {
               <form
                 onSubmit={handleSubmit(onSubmit)}
                 noValidate
-                className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+                className="bg-white shadow-md rounded-xl px-8 pt-6 pb-8 mb-4 "
               >
                 {/* Username field */}
                 <div className="mb-4">

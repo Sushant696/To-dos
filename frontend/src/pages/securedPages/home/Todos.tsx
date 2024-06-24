@@ -55,10 +55,14 @@ function DisplayTodos() {
     console.log("Edit todo successful", data);
   }
 
+  const reverseData = data?.slice().reverse();
+
+
+
   return (
     <div>
       <ul className="">
-        {data?.map((task) => (
+        {reverseData?.map((task) => (
           <li key={task._id} className="mt-6 shadow-xl rounded-md p-4">
             <div className="flex justify-between">
               <div>
@@ -71,7 +75,7 @@ function DisplayTodos() {
                   className="bg-[#4285F4] mt-2 text-white"
                   disabled={isDeleting}
                 >
-                  Delete
+                  Completed
                 </Button>
               </div>
               <Button

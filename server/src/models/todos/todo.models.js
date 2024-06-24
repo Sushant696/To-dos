@@ -2,11 +2,12 @@ import mongoose from "mongoose";
 
 const TodoSchema = new mongoose.Schema(
   {
-
-    description: { type: String, required: true },
+    description: {
+      type: String,
+      required: true,
+    },
     title: {
       type: String,
-
     },
     complete: {
       type: Boolean,
@@ -15,6 +16,13 @@ const TodoSchema = new mongoose.Schema(
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user", // ref from user schema (the one inside model while exporting)
+    },
+    startDate: {
+      type: Date,
+      default: Date.now,
+    },
+    endDate: {
+      type: Date,
     },
     subTodos: [
       {

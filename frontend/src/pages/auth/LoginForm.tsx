@@ -61,7 +61,7 @@ function Login() {
             <form
               onSubmit={handleSubmit(onSubmit)}
               noValidate
-              className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+              className="bg-white shadow-md rounded-xl px-8 pt-6 pb-8 mb-4"
             >
               {/* Username field */}
               <div className="mb-4">

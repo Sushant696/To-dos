@@ -7,8 +7,8 @@ import {
   LogoutCurve,
   Setting2,
   User,
-  ArrowLeft2,
   NoteSquare,
+  ArrowLeft2,
 } from "iconsax-react";
 import Logout from "@/pages/auth/Logout";
 import { Link } from "react-router-dom";
@@ -34,7 +34,7 @@ function SideMenu() {
   // fetch the user profile data here and set the state to true if the profile is complete
 
   return (
-    <div style={{ display: "flex", alignItems: "center", position: "fixed" }}>
+    <div style={{ display: "flex", alignItems: "start", position: "fixed" }}>
       <Sidebar
         collapsed={collapsed}
         collapsedWidth="88px"
@@ -73,7 +73,10 @@ function SideMenu() {
                     data-aos="fade-right"
                     // data-aos-duration="10"
                   >
-                    <h1 className="medium-text capitalize font-semibold" data-aos="fade-right">
+                    <h1
+                      className="medium-text capitalize font-semibold"
+                      data-aos="fade-right"
+                    >
                       {completeProfile
                         ? data.data.fullName
                         : //  data.data.username
@@ -171,12 +174,12 @@ function SideMenu() {
           </Menu>
         </div>
       </Sidebar>
-      <div>
+      <div className="mt-4 ">
         <button className="ml-4" onClick={() => setCollapsed(!collapsed)}>
           {collapsed ? (
             <ArrowRight2 color="#4285F4" size={40} />
           ) : (
-            <ArrowLeft2 color="#4285F4" size={45} />
+            <ArrowLeft2 color="#4285F4" size={40} />
           )}
         </button>
       </div>
