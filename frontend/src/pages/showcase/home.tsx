@@ -3,12 +3,14 @@ import Navbar from "../../components/navbar";
 
 import homeImg from "/images/homeimg.png";
 import { useNavigate } from "react-router-dom";
+import IncompletePopUp from "@/components/Incomplete";
 
 function Main() {
   const navigate = useNavigate();
   return (
     <div className="">
       <Navbar />
+      <IncompletePopUp />
       <div className=" container mt-8 mx-4">
         <div className="text-center my-4">
           <h1 className="text-6xl font-semibold text-[#172554] headingShowcase">

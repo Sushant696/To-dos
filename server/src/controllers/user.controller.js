@@ -124,7 +124,6 @@ const logoutUser = asyncHandler(async (req, res) => {
     secure: true,
     sameSite: "None",
   };
-  console.log("success");
   return res
     .status(200)
     .clearCookie("accessToken", options)
@@ -136,7 +135,6 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
   // access incomming token
   const incommingRefreshToken =
     req.cookies.refreshToken || req.body.refreshToken;
-  console.log(incommingRefreshToken, "incommingRefreshToken");
   if (!incommingRefreshToken) {
     throw new Apierror(401, "Unauthorized request");
   }
@@ -148,7 +146,6 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
     );
     //    The token was sent with payload of id so after decoding, we have that id
     const user = await User.findById(decodedToken?.id);
-    console.log(user, "user");
     if (!user) {
       throw new Apierror(401, "Invalid Refresh token");
     }
@@ -161,7 +158,6 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
       httpOnly: true,
       secure: true,
     };
-    console.log(user, "user");
     const accessToken = generateAccessToken(user._id);
     const newRefreshToken = generateRefreshToken(user._id);
 
@@ -202,7 +198,6 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   }
 
   const avatarFileRefCloudinary = await uploadOnCoudinary(avatarPath);
-  console.log(avatarFileRefCloudinary);
 
   const updatedUser = await User.findByIdAndUpdate(
     userId,
@@ -241,7 +236,6 @@ const getUserDetails = asyncHandler(async (req, res) => {
       .json(new ApiResponse(404, {}, "Unable to get user details"));
   }
 
-  console.log(user, "user");
   return res
     .status(200)
     .json(new ApiResponse(200, user, "User details retrieved"));

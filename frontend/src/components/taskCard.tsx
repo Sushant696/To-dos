@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 // import { Textarea } from "@/components/ui/textarea";
 import { useForm } from "react-hook-form";
 import useAddTodos from "@/hooks/useAddTodos";
-import { Label } from "./ui/label";
+// import { Label } from "./ui/label";
 
 type TaskCardProps = {
   setTaskEditor: (value: boolean) => void;
@@ -13,8 +13,8 @@ type TaskCardProps = {
 type FormDataProps = {
   title: string;
   description: string;
-  startDate: Date;
-  endDate: Date;
+  // startDate: Date;
+  // endDate: Date;
 };
 
 function TaskCard({ setTaskEditor }: TaskCardProps) {
@@ -22,8 +22,8 @@ function TaskCard({ setTaskEditor }: TaskCardProps) {
     defaultValues: {
       title: "",
       description: "",
-      startDate: new Date(),
-      endDate: new Date(),
+      // startDate: new Date(),
+      // endDate: new Date(),
     },
   });
 
@@ -65,7 +65,7 @@ function TaskCard({ setTaskEditor }: TaskCardProps) {
                 className="outline-none placeholder:text-slate-400  medium-text h-24 resize-none p-2"
                 placeholder="Task description"
               />
-              <div className="border border-black flex ">
+              {/* <div className="border border-black flex ">
                 <Input
                   {...register("startDate", { required: true })}
                   id="startDate"
@@ -83,7 +83,7 @@ function TaskCard({ setTaskEditor }: TaskCardProps) {
                     type="date"
                   />
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
           <CardFooter className="flex justify-end gap-6 mt-6">
