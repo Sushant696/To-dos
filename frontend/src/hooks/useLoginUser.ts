@@ -7,7 +7,7 @@ type FormDataType = {
 };
 
 async function postUserDetails(formData: FormDataType) {
-  console.log(import.meta.env.VITE_BACKEND_URL, "what the fuck is this??");
+  
   const response = await fetch(
     // "https://taskly-55pj.onrender.com/api/user/login",
     `${import.meta.env.VITE_BACKEND_URL}/user/login`,
