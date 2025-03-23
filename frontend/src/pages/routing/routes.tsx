@@ -16,6 +16,8 @@ import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Layout from "../securedPages/layout";
+import Option from "../forgotPassword/Option";
+import ForgotPassword from "../forgotPassword";
 
 function Routing() {
   useEffect(() => {
@@ -33,6 +35,8 @@ function Routing() {
         <Route path="/features" element={<Features />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/forgot-password/option" element={<Option />} />
         <Route path="/sign-up" element={<CreateAccount />} />
 
         {/* Protected Routes */}
