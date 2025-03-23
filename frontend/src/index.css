@@ -1,0 +1,199 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.container {
+  @apply mx-auto w-full px-4 md:w-4/5 xl:w-4/5 xl:p-0;
+}
+
+.container_todo {
+  @apply mx-auto w-full px-4 md:w-4/5 xl:w-3/6 xl:p-0;
+}
+
+.small-text {
+  @apply text-xs text-blue-950 lg:text-sm;
+}
+
+.regular-text {
+  @apply text-sm text-blue-950 lg:text-base;
+}
+
+.title-text {
+  @apply text-[32px] text-blue-950 font-bold lg:text-[36px];
+}
+
+.subtitle-text {
+  @apply text-[24px] text-blue-950 lg:text-[24px];
+}
+
+.medium-text {
+  @apply text-base text-blue-950 lg:text-lg;
+}
+
+.zoom-in-transition {
+  @apply transition-transform duration-500 ease-in-out;
+}
+
+/* Add responsive styles for different screen sizes */
+@media (max-width: 768px) {
+  .active {
+    font-size: 18px;
+  }
+
+  .active::after {
+    width: 40%;
+    height: 2px;
+    bottom: -1px;
+  }
+}
+
+.nav-link:hover {
+  text-decoration: none;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.top-menu {
+  padding-top: 20px;
+}
+
+.bottom-menu {
+  padding-bottom: 20px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+body {
+  background-color: #f3f9fb;
+  font-family: "Nunito Sans", sans-serif;
+}
+
+/* 
+.headingShowcase {
+  font-family: "Anek Latin";
+} */
+
+
+/* Active link styles */
+.active {
+  color: #2667ff;
+  font-weight: 600;
+  position: relative;
+}
+
+.active::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 60%;
+  height: 3px;
+  background-color: #2667ff;
+  transform: translateX(-50%);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+/* Hover animation for non-active links */
+a:not(.active):hover::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 30%;
+  height: 2px;
+  border-radius: 2px;
+  opacity: 0.6;
+}
+
+/* Add responsive styles for different screen sizes */
+@media (max-width: 768px) {
+  .active {
+    font-size: 18px;
+  }
+  
+  .active::after {
+    width: 40%;
+    height: 2px;
+    bottom: -1px;
+  }
+}
